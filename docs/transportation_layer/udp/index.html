@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="UDP协议#适合一次性传输较少数据，虽然通信不可靠但是应用层还是有可靠性机制的
+面向报文？？？
+报文格式#首部&#43;数据：
+其中校验和可选，不用时全为0，用来检查是否出错
+根据目的端口号找应用进程，找不到就丢弃，有ICMP发送不可达报文给发送端
+校验#增加一个12B的伪首部到首部前，然后进行计算：
+这个计算过程有点不太好说清楚
+发送端：
+计算要填入校验和的内容：全设置为0，然后把每16位取反码求和&hellip; 发送（不包括伪首部和补零） 接收段：
+加上伪首部，同样计算求和，正常的话应该全为1 ">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="UDP协议" />
+<meta property="og:description" content="UDP协议#适合一次性传输较少数据，虽然通信不可靠但是应用层还是有可靠性机制的
+面向报文？？？
+报文格式#首部&#43;数据：
+其中校验和可选，不用时全为0，用来检查是否出错
+根据目的端口号找应用进程，找不到就丢弃，有ICMP发送不可达报文给发送端
+校验#增加一个12B的伪首部到首部前，然后进行计算：
+这个计算过程有点不太好说清楚
+发送端：
+计算要填入校验和的内容：全设置为0，然后把每16位取反码求和&hellip; 发送（不包括伪首部和补零） 接收段：
+加上伪首部，同样计算求和，正常的话应该全为1 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/transportation_layer/udp/" /><meta property="article:section" content="transportation_layer" />
+
+
+<title>UDP协议 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -215,7 +233,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/transportation_layer/udp/" class="">UDP协议</a>
+    <a href="/computer_networking/transportation_layer/udp/" class="active">UDP协议</a>
   
 
         </li>
@@ -376,7 +394,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>UDP协议</strong>
 
   <label for="toc-control">
     
@@ -390,7 +408,12 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#报文格式">报文格式</a></li>
+    <li><a href="#校验">校验</a></li>
+  </ul>
+</nav>
 
 
 
@@ -401,11 +424,36 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="udp协议">
+  UDP协议
+  <a class="anchor" href="#udp%e5%8d%8f%e8%ae%ae">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<p>适合一次性传输较少数据，虽然通信不可靠但是应用层还是有可靠性机制的</p>
+<p>面向报文？？？</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230613221619827.png" alt="image-20230613221619827" style="zoom:50%;" />
+<h2 id="报文格式">
+  报文格式
+  <a class="anchor" href="#%e6%8a%a5%e6%96%87%e6%a0%bc%e5%bc%8f">#</a>
+</h2>
+<p>首部+数据：</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230613221651943.png" alt="image-20230613221651943" style="zoom:50%;" />
+<p>其中校验和可选，不用时全为0，用来检查是否出错</p>
+<p>根据目的端口号找应用进程，找不到就丢弃，有<code>ICMP</code>发送不可达报文给发送端</p>
+<h2 id="校验">
+  校验
+  <a class="anchor" href="#%e6%a0%a1%e9%aa%8c">#</a>
+</h2>
+<p>增加一个12B的伪首部到首部前，然后进行计算：</p>
+<p>这个计算过程有点不太好说清楚</p>
+<p>发送端：</p>
+<ul>
+<li>计算要填入校验和的内容：全设置为0，然后把每16位取反码求和&hellip;</li>
+<li>发送（不包括伪首部和补零）</li>
+</ul>
+<p>接收段：</p>
+<ul>
+<li>加上伪首部，同样计算求和，正常的话应该全为1</li>
+</ul>
 </article>
  
       
@@ -445,7 +493,12 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#报文格式">报文格式</a></li>
+    <li><a href="#校验">校验</a></li>
+  </ul>
+</nav>
 
 
  

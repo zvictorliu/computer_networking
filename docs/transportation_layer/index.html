@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="传输层#面向通信的最高层，面向用户功能的最底层
+这句话现在还感受不到
+功能#其功能主要包括：
+端到端通信：连接的是应用进程 复用和分用：还不懂 对收到报文进行差错检查 能同时提供两种传输协议 对应用进程来说看到的是两个传输层实体间具有一条端到端的逻辑通信信道，而中间经历了什么（比如路由）都不管
+这个图比较形象：
+寻址#端口：连接传输层和应用层，用端口号标识主机中的应用进程
+服务器端：
+熟知端口号：\(0 \sim 2^{10}-1\)，所有应用进程都知道 比如 FTP，HTTP这些程序都有固定的端口号 登记端口号：\(2^{10} \sim 49151\)需要在IANA登记 客户端：\(49151 \sim 2^{16}-1\)客户进程运行时才动态选择，是临时的，通信结束被释放，并不专属于某个程序 套接字：
+端口号用以区分主机内的不同进程，而IP地址区分不同主机
+套接字就是IP地址&#43;端口号
+A向B通信时也是把自己的源端口号一起发过去的
+无连接与面向连接概念#面向连接：建立连接-通信-释放连接，可靠
+无连接：告诉目标地址，发到网络上自生自灭，所以是不可靠的
+TCP/IP协议族中：
+TCP：面向连接 开销比较大 UDP：无连接 收到报文后无需返回确认信息 ">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="第五章 传输层" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/transportation_layer/" />
+<title>第五章 传输层 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
+<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/transportation_layer/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -202,7 +215,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/transportation_layer/" class="">第五章 传输层</a>
+    <a href="/computer_networking/transportation_layer/" class="active">第五章 传输层</a>
   
 
           
@@ -376,7 +389,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>第五章 传输层</strong>
 
   <label for="toc-control">
     
@@ -390,7 +403,13 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#功能">功能</a></li>
+    <li><a href="#寻址">寻址</a></li>
+    <li><a href="#无连接与面向连接概念">无连接与面向连接概念</a></li>
+  </ul>
+</nav>
 
 
 
@@ -401,11 +420,91 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="传输层">
+  传输层
+  <a class="anchor" href="#%e4%bc%a0%e8%be%93%e5%b1%82">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<blockquote>
+<p>面向通信的最高层，面向用户功能的最底层</p>
+</blockquote>
+<p><del>这句话现在还感受不到</del></p>
+<h2 id="功能">
+  功能
+  <a class="anchor" href="#%e5%8a%9f%e8%83%bd">#</a>
+</h2>
+<p>其功能主要包括：</p>
+<ul>
+<li>端到端通信：连接的是应用进程</li>
+<li>复用和分用：<del>还不懂</del></li>
+<li>对收到报文进行差错检查</li>
+<li>能同时提供两种传输协议</li>
+</ul>
+<p>对应用进程来说看到的是两个传输层实体间具有一条端到端的逻辑通信信道，而中间经历了什么（比如路由）都不管</p>
+<p>这个图比较形象：</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230613214447009.png" alt="image-20230613214447009" style="zoom:60%;" />
+<h2 id="寻址">
+  寻址
+  <a class="anchor" href="#%e5%af%bb%e5%9d%80">#</a>
+</h2>
+<p>端口：连接传输层和应用层，用端口号标识主机中的应用进程</p>
+<ul>
+<li>
+<p>服务器端：</p>
+<ul>
+<li>熟知端口号：
+<link rel="stylesheet" href="/computer_networking/katex/katex.min.css" />
+<script defer src="/computer_networking/katex/katex.min.js"></script>
+<script defer src="/computer_networking/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(0 \sim 2^{10}-1\)
+</span>
+，所有应用进程都知道
+<ul>
+<li>比如 FTP，HTTP这些程序都有固定的端口号</li>
+</ul>
+</li>
+<li>登记端口号：<span>
+  \(2^{10} \sim 49151\)
+</span>
+
+<ul>
+<li>需要在<code>IANA</code>登记</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>客户端：<span>
+  \(49151 \sim 2^{16}-1\)
+</span>
+</p>
+<ul>
+<li>客户进程运行时才动态选择，是临时的，通信结束被释放，并不专属于某个程序</li>
+</ul>
+</li>
+</ul>
+<p>套接字：</p>
+<p>端口号用以区分主机内的不同进程，而IP地址区分不同主机</p>
+<p>套接字就是IP地址+端口号</p>
+<p>A向B通信时也是把自己的源端口号一起发过去的</p>
+<h2 id="无连接与面向连接概念">
+  无连接与面向连接概念
+  <a class="anchor" href="#%e6%97%a0%e8%bf%9e%e6%8e%a5%e4%b8%8e%e9%9d%a2%e5%90%91%e8%bf%9e%e6%8e%a5%e6%a6%82%e5%bf%b5">#</a>
+</h2>
+<p>面向连接：建立连接-通信-释放连接，可靠</p>
+<p>无连接：告诉目标地址，发到网络上自生自灭，所以是不可靠的</p>
+<p><code>TCP/IP</code>协议族中：</p>
+<ul>
+<li>TCP：面向连接
+<ul>
+<li>开销比较大</li>
+</ul>
+</li>
+<li>UDP：无连接
+<ul>
+<li>收到报文后无需返回确认信息</li>
+</ul>
+</li>
+</ul>
 </article>
  
       
@@ -445,7 +544,13 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#功能">功能</a></li>
+    <li><a href="#寻址">寻址</a></li>
+    <li><a href="#无连接与面向连接概念">无连接与面向连接概念</a></li>
+  </ul>
+</nav>
 
 
  

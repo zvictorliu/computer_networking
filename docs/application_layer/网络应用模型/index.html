@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="网络应用模型#啥意思？说不清楚，自行体会
+客户-服务器模型#这是我们熟悉的结构，许多应用都基于这个模型
+P2P模型#没有中心服务器，或者说每个主机同时是客户机和服务器，直接相互通信(任意一对叫Peer)
+比如Bittorrent、电驴这些就是基于P2P的，下载速度快
+图最直观：">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="网络应用模型" />
+<meta property="og:description" content="网络应用模型#啥意思？说不清楚，自行体会
+客户-服务器模型#这是我们熟悉的结构，许多应用都基于这个模型
+P2P模型#没有中心服务器，或者说每个主机同时是客户机和服务器，直接相互通信(任意一对叫Peer)
+比如Bittorrent、电驴这些就是基于P2P的，下载速度快
+图最直观：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/application_layer/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/" /><meta property="article:section" content="application_layer" />
+
+
+<title>网络应用模型 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -259,7 +267,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/application_layer/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/" class="">网络应用模型</a>
+    <a href="/computer_networking/application_layer/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/" class="active">网络应用模型</a>
   
 
         </li>
@@ -376,7 +384,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>网络应用模型</strong>
 
   <label for="toc-control">
     
@@ -390,7 +398,12 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#客户-服务器模型">客户-服务器模型</a></li>
+    <li><a href="#p2p模型">P2P模型</a></li>
+  </ul>
+</nav>
 
 
 
@@ -401,11 +414,24 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="网络应用模型">
+  网络应用模型
+  <a class="anchor" href="#%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8%e6%a8%a1%e5%9e%8b">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<p>啥意思？说不清楚，自行体会</p>
+<h2 id="客户-服务器模型">
+  客户-服务器模型
+  <a class="anchor" href="#%e5%ae%a2%e6%88%b7-%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a8%a1%e5%9e%8b">#</a>
+</h2>
+<p>这是我们熟悉的结构，许多应用都基于这个模型</p>
+<h2 id="p2p模型">
+  P2P模型
+  <a class="anchor" href="#p2p%e6%a8%a1%e5%9e%8b">#</a>
+</h2>
+<p>没有中心服务器，或者说每个主机同时是客户机和服务器，直接相互通信(任意一对叫<code>Peer</code>)</p>
+<p>比如Bittorrent、电驴这些就是基于P2P的，下载速度快</p>
+<p>图最直观：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230611191119745.png" alt="image-20230611191119745" /></p>
 </article>
  
       
@@ -445,7 +471,12 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#客户-服务器模型">客户-服务器模型</a></li>
+    <li><a href="#p2p模型">P2P模型</a></li>
+  </ul>
+</nav>
 
 
  

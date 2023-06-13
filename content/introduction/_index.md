@@ -19,3 +19,7 @@ weight: 1
 一个主机向另一个主机发包，那需要先包装，然后邮寄，另一方拆包后才得到内容
 
 <img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230607205441134.png" alt="image-20230607205441134" style="zoom:67%;" />
+
+
+
+计网分层的依据、道理没有找到解释，整本书都是在讲每一层有哪些协议，感受不到一个具体的系统或者流程，就感觉十分分散，也不具体

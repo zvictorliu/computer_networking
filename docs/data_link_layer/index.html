@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="数据链路层#通过各种控制协议，将有差错的物理信道变为无差错的、能可靠传输数据帧的数据链路
+物理链路传输是不保证可靠的
+接收来自物理层的位流形式的数据，并封装成帧，传送到上一层；同样，也将来自上层的数据帧，拆装为位流形式的数据转发到物理层
+先概述介绍数据链路层的功能，然后具体介绍一下其中
+组帧 差错控制 流量控制 这三项功能
+还介绍了介质访问控制：针对广播信道中避免互相干扰，将同一信道进行分配
+然后介绍了局域网和广域网，但感觉前后联系不大
+后面再将的数据链路层设备需要对局域网有一定了解吧，其实就讲了局域网交换机">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="第三章 数据链路层" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/data_link_layer/" />
+<title>第三章 数据链路层 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
+<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/data_link_layer/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -145,7 +151,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/data_link_layer/" class="">第三章 数据链路层</a>
+    <a href="/computer_networking/data_link_layer/" class="active">第三章 数据链路层</a>
   
 
           
@@ -376,7 +382,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>第三章 数据链路层</strong>
 
   <label for="toc-control">
     
@@ -401,11 +407,27 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="数据链路层">
+  数据链路层
+  <a class="anchor" href="#%e6%95%b0%e6%8d%ae%e9%93%be%e8%b7%af%e5%b1%82">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<blockquote>
+<p>通过各种控制协议，将有差错的物理信道变为无差错的、能可靠传输数据帧的数据链路</p>
+</blockquote>
+<p>物理链路传输是不保证可靠的</p>
+<blockquote>
+<p>接收来自物理层的位流形式的数据，并封装成帧，传送到上一层；同样，也将来自上层的数据帧，拆装为位流形式的数据转发到物理层</p>
+</blockquote>
+<p>先概述介绍数据链路层的功能，然后具体介绍一下其中</p>
+<ul>
+<li>组帧</li>
+<li>差错控制</li>
+<li>流量控制</li>
+</ul>
+<p>这三项功能</p>
+<p>还介绍了介质访问控制：针对广播信道中避免互相干扰，将同一信道进行分配</p>
+<p>然后介绍了局域网和广域网，但感觉前后联系不大</p>
+<p>后面再将的数据链路层设备需要对局域网有一定了解吧，其实就讲了局域网交换机</p>
 </article>
  
       

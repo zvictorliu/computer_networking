@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>第二章 物理层 on Computer Networking</title>
+    <link>https://zvictorliu.github.io/computer_networking/physical_layer/</link>
+    <description>Recent content in 第二章 物理层 on Computer Networking</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://zvictorliu.github.io/computer_networking/physical_layer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2.1 通信基础知识</title>
+      <link>https://zvictorliu.github.io/computer_networking/physical_layer/%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/physical_layer/%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/</guid>
+      <description>通信基础#首先需要了解一些基本概念，然后是著名的奈奎斯特定理和香农定理
+进一步讲编码、交换等计数
+一个典型的通信系统模型：
+1 基本概念#1.1 术语#数据和信号：数据是信息实体，信号是物理存在形式
+码元：一个固定时长的信号波形表示一位数字（\(k\)进制），不是一个比特
+信道：一条线路的逻辑部分
+速率：
+波特率：
+带宽：
+1.2 传输方式#串行和并行传输，这个不必多说
+同步传输：先告诉对方我要发多少
+异步传输：起始位和终止位
+1.3 交互模式#单工：一个方向 半双工：双向，但某一时刻是单向 全双工：可以同时 注意，一个方向就需要一条信道
+2 定理#2.1 奈奎斯特#2.2 香农#3 编码与调制#转为数字信号叫编码，转为模拟信号叫调制
+3.1 数字型数据 to 数字信号#能够区分开0和1，具体用什么样的数字信号有很多种
+3.2 数字型数据 to 模拟信号#发送端调制，接收端解调，将01藏在正弦波当中：
+3.3 模拟型数据 to 数字信号#PCM：采样、量化、编码
+3.4 模拟型数据 to 模拟信号#大概也是调制解调吧</description>
+    </item>
+    
+    <item>
+      <title>2.2 交换方式</title>
+      <link>https://zvictorliu.github.io/computer_networking/physical_layer/%E4%BA%A4%E6%8D%A2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/physical_layer/%E4%BA%A4%E6%8D%A2/</guid>
+      <description>交换方式#交换网络一般是这样的：
+两个设备之间可能会有多个交换设备
+1 电路交换#两结点之间进行通信需要先建立一条专用通道，在通信期间中间每个交换器的发送方向是固定的，也就是说这条路径是双方独占的
+所以分三个阶段：建立连接 - 数据传输 - 释放连接
+2 报文交换#基于“存储-转发”的思想
+数据交换单位为报文，报文中包含了目标地址和源地址的信息，交换设备逐个寄出去，因此不存在独占
+缺点在于：有时间延迟、交换设备存储空间
+3 分组交换#基于报文交换，限制数据块大小上限，把大数据块分为小数据块，每一小块在加上一些必要控制信息，单位就是小数据块，叫分组Packet
+对比：
+3.1 数据报方式#简单来说就是发送到不同的交换设备上，最后到达顺序和发送顺序可能不一样，而且甚至有些包还送不到
+3.2 虚电路方式#建立一条逻辑上相连的虚电路
+先呼叫，找到目标，然后原路呼叫回去，便建立一条逻辑通路，这样其实就是固定了一条路，同时是非占用的
+释放也是呼叫两次</description>
+    </item>
+    
+  </channel>
+</rss>

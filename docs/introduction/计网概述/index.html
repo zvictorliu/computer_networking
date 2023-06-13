@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="概述#网络体系结构概念#计网的体系结构是一个分层模型，在功能上的模型，就是体系结构Architecture概念
+每一层有自己的数据传输单位，各有自己的名称：比特、帧、分组、报文段
+分数据部分SDU和控制信息PCI，共同组成协议数据单元PDU（报文）
+网络协议：数据交换的规则，由语法、语义和同步组成；
+语法：指定数据传输的格式 语义：要完成的功能 同步：事件执行的顺序 接口：相邻两层交换信息的连接点
+服务：下层为上层提供的功能调用
+ISO/OSI#ISO指的是国际标准化组织，他们提出的一种网络体系结构模型：开放式互连参考模型 (Open System Interconnection Reference Model, OSI)
+共有7层，自底向上是
+物理层：机械电子层面的原始比特流传输 数据链路层：将原始比特流变为逻辑传输线路 网络层：控制子网运行 传输层：两个进程通信？ 会话层：管理通信会话 表示层：数据处理，格式转换、编码解码等等 应用层： TCP/IP#另一种网络体系结构
+网络接口层 网际层 传输层 应用层 而IP指的是网际层定义的标准分组格式和协议，IPv4, IPv6指的是版本
+两种结构综合起来分为五层：
+物理层 数据链路层 网络层 传输层 应用层 这个书就是在细讲这五层
+这些层真的没有那么具体那么层次分明，所以对他们的作用不必太关注，只需要看具体的协议即可，这个有机联系确实没那么强">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="1.1 计网概述" />
+<meta property="og:description" content="概述#网络体系结构概念#计网的体系结构是一个分层模型，在功能上的模型，就是体系结构Architecture概念
+每一层有自己的数据传输单位，各有自己的名称：比特、帧、分组、报文段
+分数据部分SDU和控制信息PCI，共同组成协议数据单元PDU（报文）
+网络协议：数据交换的规则，由语法、语义和同步组成；
+语法：指定数据传输的格式 语义：要完成的功能 同步：事件执行的顺序 接口：相邻两层交换信息的连接点
+服务：下层为上层提供的功能调用
+ISO/OSI#ISO指的是国际标准化组织，他们提出的一种网络体系结构模型：开放式互连参考模型 (Open System Interconnection Reference Model, OSI)
+共有7层，自底向上是
+物理层：机械电子层面的原始比特流传输 数据链路层：将原始比特流变为逻辑传输线路 网络层：控制子网运行 传输层：两个进程通信？ 会话层：管理通信会话 表示层：数据处理，格式转换、编码解码等等 应用层： TCP/IP#另一种网络体系结构
+网络接口层 网际层 传输层 应用层 而IP指的是网际层定义的标准分组格式和协议，IPv4, IPv6指的是版本
+两种结构综合起来分为五层：
+物理层 数据链路层 网络层 传输层 应用层 这个书就是在细讲这五层
+这些层真的没有那么具体那么层次分明，所以对他们的作用不必太关注，只需要看具体的协议即可，这个有机联系确实没那么强" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/introduction/%E8%AE%A1%E7%BD%91%E6%A6%82%E8%BF%B0/" /><meta property="article:section" content="introduction" />
+
+
+<title>1.1 计网概述 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -83,7 +107,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/introduction/%E8%AE%A1%E7%BD%91%E6%A6%82%E8%BF%B0/" class="">1.1 计网概述</a>
+    <a href="/computer_networking/introduction/%E8%AE%A1%E7%BD%91%E6%A6%82%E8%BF%B0/" class="active">1.1 计网概述</a>
   
 
         </li>
@@ -376,7 +400,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>1.1 计网概述</strong>
 
   <label for="toc-control">
     
@@ -390,7 +414,13 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#网络体系结构概念">网络体系结构概念</a></li>
+    <li><a href="#isoosi">ISO/OSI</a></li>
+    <li><a href="#tcpip">TCP/IP</a></li>
+  </ul>
+</nav>
 
 
 
@@ -401,11 +431,63 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="概述">
+  概述
+  <a class="anchor" href="#%e6%a6%82%e8%bf%b0">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<h2 id="网络体系结构概念">
+  网络体系结构概念
+  <a class="anchor" href="#%e7%bd%91%e7%bb%9c%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84%e6%a6%82%e5%bf%b5">#</a>
+</h2>
+<p>计网的体系结构是一个分层模型，在功能上的模型，就是体系结构<code>Architecture</code>概念</p>
+<p>每一层有自己的数据传输单位，各有自己的名称：比特、帧、分组、报文段</p>
+<p>分数据部分SDU和控制信息PCI，共同组成协议数据单元PDU（报文）</p>
+<p>网络协议：数据交换的规则，由语法、语义和同步组成；</p>
+<ul>
+<li>语法：指定数据传输的格式</li>
+<li>语义：要完成的功能</li>
+<li>同步：事件执行的顺序</li>
+</ul>
+<p>接口：相邻两层交换信息的连接点</p>
+<p>服务：下层为上层提供的功能调用</p>
+<h2 id="isoosi">
+  ISO/OSI
+  <a class="anchor" href="#isoosi">#</a>
+</h2>
+<p>ISO指的是国际标准化组织，他们提出的一种网络体系结构模型：开放式互连参考模型 (Open System Interconnection Reference Model, OSI)</p>
+<p>共有7层，自底向上是</p>
+<ul>
+<li>物理层：机械电子层面的原始比特流传输</li>
+<li>数据链路层：将原始比特流变为逻辑传输线路</li>
+<li>网络层：控制子网运行</li>
+<li>传输层：两个进程通信？</li>
+<li>会话层：管理通信会话</li>
+<li>表示层：数据处理，格式转换、编码解码等等</li>
+<li>应用层：</li>
+</ul>
+<h2 id="tcpip">
+  TCP/IP
+  <a class="anchor" href="#tcpip">#</a>
+</h2>
+<p>另一种网络体系结构</p>
+<ul>
+<li>网络接口层</li>
+<li>网际层</li>
+<li>传输层</li>
+<li>应用层</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230607201542277.png" alt="image-20230607201542277" align="right" style="zoom:50%;" />
+<p>而IP指的是网际层定义的标准分组格式和协议，IPv4, IPv6指的是版本</p>
+<p>两种结构综合起来分为五层：</p>
+<ul>
+<li>物理层</li>
+<li>数据链路层</li>
+<li>网络层</li>
+<li>传输层</li>
+<li>应用层</li>
+</ul>
+<p>这个书就是在细讲这五层</p>
+<p>这些层真的没有那么具体那么层次分明，所以对他们的作用不必太关注，只需要看具体的协议即可，这个有机联系确实没那么强</p>
 </article>
  
       
@@ -445,7 +527,13 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#网络体系结构概念">网络体系结构概念</a></li>
+    <li><a href="#isoosi">ISO/OSI</a></li>
+    <li><a href="#tcpip">TCP/IP</a></li>
+  </ul>
+</nav>
 
 
  

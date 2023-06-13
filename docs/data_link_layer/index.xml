@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>第三章 数据链路层 on Computer Networking</title>
+    <link>https://zvictorliu.github.io/computer_networking/data_link_layer/</link>
+    <description>Recent content in 第三章 数据链路层 on Computer Networking</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://zvictorliu.github.io/computer_networking/data_link_layer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>3.1 功能</title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8A%9F%E8%83%BD/</guid>
+      <description>数据链路层的功能#为网络层提供服务 对链路进行管理，建立、维护、释放等等 帧处理 流量控制 差错控制，使发送方确认接收方是否正确收到 服务网络层#面向连接和无连接的区别
+链路管理#面向连接
+帧#帧定界
+帧同步
+透明传输
+流量控制#限制发送速率不超过接收速率
+不只数据链路层才有
+差错控制#位错：循环冗余校验CRC来发现，然后进行自动重传请求ARQ来重新传
+帧错：定时器和编号机制</description>
+    </item>
+    
+    <item>
+      <title>组帧</title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E7%BB%84%E5%B8%A7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E7%BB%84%E5%B8%A7/</guid>
+      <description>组帧#帧的意义在于，如果出错不必完全重新传
+组帧就是帧的封装，对上层传下来的信息进行封装
+信息以帧为最小单位，是比特流中的一段，所以有首部和尾部
+有四种组装方式
+1 字符计数法#2 字符填充法#3 零比特填充#4 违规编码#</description>
+    </item>
+    
+    <item>
+      <title>差错控制</title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6/</guid>
+      <description>差错控制#只针对比特差错：0和1弄反
+有检查差错的编码和纠正差错的编码
+检错#纠错#</description>
+    </item>
+    
+  </channel>
+</rss>

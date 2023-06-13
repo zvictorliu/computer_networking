@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="文件传输协议#客户向服务器建立两个并行的TCP连接：
+控制连接：21号端口 数据连接：20号端口 服务器持续监听21号端口，等等客户连接，会话期间一直打开
+服务器上主进程负责接收请求，子进程负责处理单个请求
+控制进程接到请求后创建数据传送进程和数据连接
+两种数据传输模式：
+主动模式：PORT 客户端和服务器连接后，客户端自己开发一个端口，将端口号和PORT命令发送给服务器，服务器于是将20号端口和这个端口建立数据连接 被动模式：PASV 服务器收到PASV命令后，随机开放一个端口并告知客户端，客户端与之建立数据连接 FTP修改服务器上文件：
+先读回来，修改后再传上去 网络文件系统：
+能够远程操控，只复制一个小片段回来修改然后安装上去 ">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="文件传输协议" />
+<meta property="og:description" content="文件传输协议#客户向服务器建立两个并行的TCP连接：
+控制连接：21号端口 数据连接：20号端口 服务器持续监听21号端口，等等客户连接，会话期间一直打开
+服务器上主进程负责接收请求，子进程负责处理单个请求
+控制进程接到请求后创建数据传送进程和数据连接
+两种数据传输模式：
+主动模式：PORT 客户端和服务器连接后，客户端自己开发一个端口，将端口号和PORT命令发送给服务器，服务器于是将20号端口和这个端口建立数据连接 被动模式：PASV 服务器收到PASV命令后，随机开放一个端口并告知客户端，客户端与之建立数据连接 FTP修改服务器上文件：
+先读回来，修改后再传上去 网络文件系统：
+能够远程操控，只复制一个小片段回来修改然后安装上去 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/application_layer/ftp/" /><meta property="article:section" content="application_layer" />
+
+
+<title>文件传输协议 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -285,7 +299,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/application_layer/ftp/" class="">文件传输协议</a>
+    <a href="/computer_networking/application_layer/ftp/" class="active">文件传输协议</a>
   
 
         </li>
@@ -376,7 +390,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>文件传输协议</strong>
 
   <label for="toc-control">
     
@@ -401,11 +415,39 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="文件传输协议">
+  文件传输协议
+  <a class="anchor" href="#%e6%96%87%e4%bb%b6%e4%bc%a0%e8%be%93%e5%8d%8f%e8%ae%ae">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<p>客户向服务器建立两个并行的TCP连接：</p>
+<ul>
+<li>控制连接：21号端口</li>
+<li>数据连接：20号端口</li>
+</ul>
+<p>服务器持续监听21号端口，等等客户连接，会话期间一直打开</p>
+<p>服务器上主进程负责接收请求，子进程负责处理单个请求</p>
+<p>控制进程接到请求后创建数据传送进程和数据连接</p>
+<p>两种数据传输模式：</p>
+<ul>
+<li>主动模式：PORT
+<ul>
+<li>客户端和服务器连接后，客户端自己开发一个端口，将端口号和PORT命令发送给服务器，服务器于是将20号端口和这个端口建立数据连接</li>
+</ul>
+</li>
+<li>被动模式：PASV
+<ul>
+<li>服务器收到PASV命令后，随机开放一个端口并告知客户端，客户端与之建立数据连接</li>
+</ul>
+</li>
+</ul>
+<p>FTP修改服务器上文件：</p>
+<ul>
+<li>先读回来，修改后再传上去</li>
+</ul>
+<p>网络文件系统：</p>
+<ul>
+<li>能够远程操控，只复制一个小片段回来修改然后安装上去</li>
+</ul>
 </article>
  
       

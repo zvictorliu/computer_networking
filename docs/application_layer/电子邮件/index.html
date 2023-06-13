@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="序#计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考">
+<meta name="description" content="电子邮件#异步通信方式算是一种思维革新吧
+把东西放到信箱里，不需要同时在场
+邮件系统结构#用户代理UA：用户和电子邮件系统的接口，一般就是电子邮件客户端
+邮件服务器：它们之间发送和接收邮件
+协议：用户代理和邮件服务器之间的协议
+邮件格式和MIME#邮件的格式是 首部&#43;主体
+首部包括：
+From: 源（UA帮填） To: 目标 Subject: 可选，用户填写主题 多用途网际邮件扩充MIME: 在SMTP基础上定义非ASCII码的编码规则，所以不只发英文文本还可以发附件
+STMP和POP3#STMP#连接建立：发送服务器扫描缓冲区，发现有邮件就去和接收服务器建立连接，并发送HELO命令测试
+邮件传送：
+先MAIL FROM: &lt;xxx&gt;命令，看是否有OK返回，检查是否准备好接收 发送 RCPT TO: &lt;xxx&gt;命令，看是否有OK返回，检查地址是否正确 发送DATA命令，理论返回354 start mail input; end with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; CR（Carriage Return）表示回车，CR（Carriage Return）表示回车，但这个跟操作系统有关，Windows下一行是CR&#43;LF，而Linux只有LF，所以我们git有时候会有这个东西的替换 然后发送具体内容，回复OK 发出QUIT，回复xxx POP3和IMAP#下载并保留，下载并删除
+IMAP则功能更多
+基于万维网的，用户和服务器之间用HTTP">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="序" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/" />
-<title>序 | Computer Networking</title>
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="电子邮件" />
+<meta property="og:description" content="电子邮件#异步通信方式算是一种思维革新吧
+把东西放到信箱里，不需要同时在场
+邮件系统结构#用户代理UA：用户和电子邮件系统的接口，一般就是电子邮件客户端
+邮件服务器：它们之间发送和接收邮件
+协议：用户代理和邮件服务器之间的协议
+邮件格式和MIME#邮件的格式是 首部&#43;主体
+首部包括：
+From: 源（UA帮填） To: 目标 Subject: 可选，用户填写主题 多用途网际邮件扩充MIME: 在SMTP基础上定义非ASCII码的编码规则，所以不只发英文文本还可以发附件
+STMP和POP3#STMP#连接建立：发送服务器扫描缓冲区，发现有邮件就去和接收服务器建立连接，并发送HELO命令测试
+邮件传送：
+先MAIL FROM: &lt;xxx&gt;命令，看是否有OK返回，检查是否准备好接收 发送 RCPT TO: &lt;xxx&gt;命令，看是否有OK返回，检查地址是否正确 发送DATA命令，理论返回354 start mail input; end with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; CR（Carriage Return）表示回车，CR（Carriage Return）表示回车，但这个跟操作系统有关，Windows下一行是CR&#43;LF，而Linux只有LF，所以我们git有时候会有这个东西的替换 然后发送具体内容，回复OK 发出QUIT，回复xxx POP3和IMAP#下载并保留，下载并删除
+IMAP则功能更多
+基于万维网的，用户和服务器之间用HTTP" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" /><meta property="article:section" content="application_layer" />
+
+
+<title>电子邮件 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
   <script defer src="/computer_networking/en.search.min.fc4ee502d4cc159c5623d12fc983f9501eb7708ed4822926d289640333b7ab83.js" integrity="sha256-/E7lAtTMFZxWI9EvyYP5UB63cI7Ugikm0olkAzO3q4M=" crossorigin="anonymous"></script>
-<link rel="alternate" type="application/rss+xml" href="https://zvictorliu.github.io/computer_networking/index.xml" title="Computer Networking" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -298,7 +322,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" class="">电子邮件</a>
+    <a href="/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" class="active">电子邮件</a>
   
 
         </li>
@@ -376,7 +400,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>序</strong>
+  <strong>电子邮件</strong>
 
   <label for="toc-control">
     
@@ -390,7 +414,18 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#邮件系统结构">邮件系统结构</a></li>
+    <li><a href="#邮件格式和mime">邮件格式和MIME</a></li>
+    <li><a href="#stmp和pop3">STMP和POP3</a>
+      <ul>
+        <li><a href="#stmp">STMP</a></li>
+        <li><a href="#pop3和imap">POP3和IMAP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
 
@@ -401,11 +436,62 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="序">
-  序
-  <a class="anchor" href="#%e5%ba%8f">#</a>
+  <article class="markdown"><h1 id="电子邮件">
+  电子邮件
+  <a class="anchor" href="#%e7%94%b5%e5%ad%90%e9%82%ae%e4%bb%b6">#</a>
 </h1>
-<p>计网算是完全没有学过的一门，只有这个学过了，才算真的是跨考</p>
+<p>异步通信方式算是一种思维革新吧</p>
+<p>把东西放到信箱里，不需要同时在场</p>
+<h2 id="邮件系统结构">
+  邮件系统结构
+  <a class="anchor" href="#%e9%82%ae%e4%bb%b6%e7%b3%bb%e7%bb%9f%e7%bb%93%e6%9e%84">#</a>
+</h2>
+<p>用户代理<code>UA</code>：用户和电子邮件系统的接口，一般就是电子邮件客户端</p>
+<p>邮件服务器：它们之间发送和接收邮件</p>
+<p>协议：用户代理和邮件服务器之间的协议</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230611200812909.png" alt="image-20230611200812909" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230611200830267.png" alt="image-20230611200830267" style="zoom:50%;" />
+<h2 id="邮件格式和mime">
+  邮件格式和MIME
+  <a class="anchor" href="#%e9%82%ae%e4%bb%b6%e6%a0%bc%e5%bc%8f%e5%92%8cmime">#</a>
+</h2>
+<p>邮件的格式是 首部+主体</p>
+<p>首部包括：</p>
+<ul>
+<li>From: 源（UA帮填）</li>
+<li>To: 目标</li>
+<li>Subject: 可选，用户填写主题</li>
+</ul>
+<p>多用途网际邮件扩充<code>MIME</code>: 在SMTP基础上定义非ASCII码的编码规则，所以不只发英文文本还可以发附件</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230611201318546.png" alt="image-20230611201318546" style="zoom:50%;" />
+<h2 id="stmp和pop3">
+  STMP和POP3
+  <a class="anchor" href="#stmp%e5%92%8cpop3">#</a>
+</h2>
+<h3 id="stmp">
+  STMP
+  <a class="anchor" href="#stmp">#</a>
+</h3>
+<p>连接建立：发送服务器扫描缓冲区，发现有邮件就去和接收服务器建立连接，并发送<code>HELO</code>命令测试</p>
+<p>邮件传送：</p>
+<ul>
+<li>先<code>MAIL FROM: &lt;xxx&gt;</code>命令，看是否有<code>OK</code>返回，检查是否准备好接收</li>
+<li>发送 <code>RCPT TO: &lt;xxx&gt;</code>命令，看是否有<code>OK</code>返回，检查地址是否正确</li>
+<li>发送<code>DATA</code>命令，理论返回<code>354 start mail input; end with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;</code>
+<ul>
+<li>CR（Carriage Return）表示回车，CR（Carriage Return）表示回车，但这个跟操作系统有关，Windows下一行是CR+LF，而Linux只有LF，所以我们git有时候会有这个东西的替换</li>
+</ul>
+</li>
+<li>然后发送具体内容，回复OK</li>
+<li>发出QUIT，回复xxx</li>
+</ul>
+<h3 id="pop3和imap">
+  POP3和IMAP
+  <a class="anchor" href="#pop3%e5%92%8cimap">#</a>
+</h3>
+<p>下载并保留，下载并删除</p>
+<p>IMAP则功能更多</p>
+<p>基于万维网的，用户和服务器之间用HTTP</p>
 </article>
  
       
@@ -445,7 +531,18 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#邮件系统结构">邮件系统结构</a></li>
+    <li><a href="#邮件格式和mime">邮件格式和MIME</a></li>
+    <li><a href="#stmp和pop3">STMP和POP3</a>
+      <ul>
+        <li><a href="#stmp">STMP</a></li>
+        <li><a href="#pop3和imap">POP3和IMAP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
  
