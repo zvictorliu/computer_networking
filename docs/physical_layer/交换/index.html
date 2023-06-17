@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="交换方式#交换网络一般是这样的：
-两个设备之间可能会有多个交换设备
-1 电路交换#两结点之间进行通信需要先建立一条专用通道，在通信期间中间每个交换器的发送方向是固定的，也就是说这条路径是双方独占的
-所以分三个阶段：建立连接 - 数据传输 - 释放连接
-2 报文交换#基于“存储-转发”的思想
-数据交换单位为报文，报文中包含了目标地址和源地址的信息，交换设备逐个寄出去，因此不存在独占
-缺点在于：有时间延迟、交换设备存储空间
-3 分组交换#基于报文交换，限制数据块大小上限，把大数据块分为小数据块，每一小块在加上一些必要控制信息，单位就是小数据块，叫分组Packet
-对比：
+<meta name="description" content="交换方式#电路交换#必须建立专用连接，而且通信期间一直占用的信息交换方式：
+明显效率不高
+报文交换#存储转发方式：先发到中间设备，中间设备收到后再进行下一步转发
+无论大小
+分组交换#分组：将较长的数据分成小段，每段加上首部，构成一个个分组，放到这样的网络上传输：
+这里面每个分组并不一定是同样的路径
+细节问题就有：差错、顺序等等
+任意两个节点通信是电路交换的
+对比三种：
 3.1 数据报方式#简单来说就是发送到不同的交换设备上，最后到达顺序和发送顺序可能不一样，而且甚至有些包还送不到
 3.2 虚电路方式#建立一条逻辑上相连的虚电路
 先呼叫，找到目标，然后原路呼叫回去，便建立一条逻辑通路，这样其实就是固定了一条路，同时是非占用的
 释放也是呼叫两次">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="2.2 交换方式" />
-<meta property="og:description" content="交换方式#交换网络一般是这样的：
-两个设备之间可能会有多个交换设备
-1 电路交换#两结点之间进行通信需要先建立一条专用通道，在通信期间中间每个交换器的发送方向是固定的，也就是说这条路径是双方独占的
-所以分三个阶段：建立连接 - 数据传输 - 释放连接
-2 报文交换#基于“存储-转发”的思想
-数据交换单位为报文，报文中包含了目标地址和源地址的信息，交换设备逐个寄出去，因此不存在独占
-缺点在于：有时间延迟、交换设备存储空间
-3 分组交换#基于报文交换，限制数据块大小上限，把大数据块分为小数据块，每一小块在加上一些必要控制信息，单位就是小数据块，叫分组Packet
-对比：
+<meta property="og:description" content="交换方式#电路交换#必须建立专用连接，而且通信期间一直占用的信息交换方式：
+明显效率不高
+报文交换#存储转发方式：先发到中间设备，中间设备收到后再进行下一步转发
+无论大小
+分组交换#分组：将较长的数据分成小段，每段加上首部，构成一个个分组，放到这样的网络上传输：
+这里面每个分组并不一定是同样的路径
+细节问题就有：差错、顺序等等
+任意两个节点通信是电路交换的
+对比三种：
 3.1 数据报方式#简单来说就是发送到不同的交换设备上，最后到达顺序和发送顺序可能不一样，而且甚至有些包还送不到
 3.2 虚电路方式#建立一条逻辑上相连的虚电路
 先呼叫，找到目标，然后原路呼叫回去，便建立一条逻辑通路，这样其实就是固定了一条路，同时是非占用的
@@ -40,7 +40,7 @@
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
-  <script defer src="/computer_networking/en.search.min.9e7e55d32d42df4ad388e49de8cdc52f6a1f497c79702c1132990c3c97ce4ce4.js" integrity="sha256-nn5V0y1C30rTiOSd6M3FL2ofSXx5cCwRMpkMPJfOTOQ=" crossorigin="anonymous"></script>
+  <script defer src="/computer_networking/en.search.min.fcf664a67e99ab12a625234ac887ce01b9928a9bdc8dad11410236ca63221630.js" integrity="sha256-/PZkpn6ZqxKmJSNKyIfOAbmSipvcja0RQQI2ymMiFjA=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -108,6 +108,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/computer_networking/introduction/%E8%AE%A1%E7%BD%91%E6%A6%82%E8%BF%B0/" class="">1.1 计网概述</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/computer_networking/introduction/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" class="">1.2 层次化体系结构</a>
   
 
         </li>
@@ -253,6 +266,19 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/computer_networking/network_layer/ipv4/" class="">IPv4</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/computer_networking/network_layer/ipv6/" class="">IPv6</a>
   
 
         </li>
@@ -460,9 +486,9 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-电路交换">1 电路交换</a></li>
-    <li><a href="#2-报文交换">2 报文交换</a></li>
-    <li><a href="#3-分组交换">3 分组交换</a>
+    <li><a href="#电路交换">电路交换</a></li>
+    <li><a href="#报文交换">报文交换</a></li>
+    <li><a href="#分组交换">分组交换</a>
       <ul>
         <li><a href="#31-数据报方式">3.1 数据报方式</a></li>
         <li><a href="#32-虚电路方式">3.2 虚电路方式</a></li>
@@ -484,28 +510,29 @@ https://github.com/alex-shpak/hugo-book
   交换方式
   <a class="anchor" href="#%e4%ba%a4%e6%8d%a2%e6%96%b9%e5%bc%8f">#</a>
 </h1>
-<p>交换网络一般是这样的：</p>
-<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230610170756825.png" alt="image-20230610170756825" style="zoom:67%;" />
-<p>两个设备之间可能会有多个交换设备</p>
-<h2 id="1-电路交换">
-  1 电路交换
-  <a class="anchor" href="#1-%e7%94%b5%e8%b7%af%e4%ba%a4%e6%8d%a2">#</a>
+<h2 id="电路交换">
+  电路交换
+  <a class="anchor" href="#%e7%94%b5%e8%b7%af%e4%ba%a4%e6%8d%a2">#</a>
 </h2>
-<p>两结点之间进行通信需要先建立一条专用通道，在通信期间中间每个交换器的发送方向是固定的，也就是说这条路径是双方独占的</p>
-<p>所以分三个阶段：建立连接 - 数据传输 - 释放连接</p>
-<h2 id="2-报文交换">
-  2 报文交换
-  <a class="anchor" href="#2-%e6%8a%a5%e6%96%87%e4%ba%a4%e6%8d%a2">#</a>
+<p>必须建立专用连接，而且通信期间一直占用的信息交换方式：</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230617152917927.png" alt="image-20230617152917927" style="zoom:60%;" />
+<p>明显效率不高</p>
+<h2 id="报文交换">
+  报文交换
+  <a class="anchor" href="#%e6%8a%a5%e6%96%87%e4%ba%a4%e6%8d%a2">#</a>
 </h2>
-<p>基于“存储-转发”的思想</p>
-<p>数据交换单位为报文，报文中包含了目标地址和源地址的信息，交换设备逐个寄出去，因此不存在独占</p>
-<p>缺点在于：有时间延迟、交换设备存储空间</p>
-<h2 id="3-分组交换">
-  3 分组交换
-  <a class="anchor" href="#3-%e5%88%86%e7%bb%84%e4%ba%a4%e6%8d%a2">#</a>
+<p>存储转发方式：先发到中间设备，中间设备收到后再进行下一步转发</p>
+<p>无论大小</p>
+<h2 id="分组交换">
+  分组交换
+  <a class="anchor" href="#%e5%88%86%e7%bb%84%e4%ba%a4%e6%8d%a2">#</a>
 </h2>
-<p>基于报文交换，限制数据块大小上限，把大数据块分为小数据块，每一小块在加上一些必要控制信息，单位就是小数据块，叫分组Packet</p>
-<p>对比：</p>
+<p><em>分组</em>：将较长的数据分成小段，每段加上首部，构成一个个分组，放到这样的网络上传输：</p>
+<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230617153302657.png" alt="image-20230617153302657" style="zoom:50%;" />
+<p>这里面每个分组并不一定是同样的路径</p>
+<p>细节问题就有：差错、顺序等等</p>
+<p>任意两个节点通信是电路交换的</p>
+<p>对比三种：</p>
 <img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230610171727876.png" alt="image-20230610171727876" style="zoom:60%;" />
 <h3 id="31-数据报方式">
   3.1 数据报方式
@@ -561,9 +588,9 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-电路交换">1 电路交换</a></li>
-    <li><a href="#2-报文交换">2 报文交换</a></li>
-    <li><a href="#3-分组交换">3 分组交换</a>
+    <li><a href="#电路交换">电路交换</a></li>
+    <li><a href="#报文交换">报文交换</a></li>
+    <li><a href="#分组交换">分组交换</a>
       <ul>
         <li><a href="#31-数据报方式">3.1 数据报方式</a></li>
         <li><a href="#32-虚电路方式">3.2 虚电路方式</a></li>
