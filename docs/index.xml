@@ -102,6 +102,16 @@ P2P模型#没有中心服务器，或者说每个主机同时是客户机和�
     </item>
     
     <item>
+      <title>路由算法</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</guid>
+      <description>路由算法#根据路由表的维护：
+静态路由 手工配置 动态路由 相互连接的路由器彼此交换信息，按照一定算法优化出来 距离-向量算法#链路状态算法#层次路由概念#</description>
+    </item>
+    
+    <item>
       <title>2.2 交换方式</title>
       <link>https://zvictorliu.github.io/computer_networking/physical_layer/%E4%BA%A4%E6%8D%A2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -144,6 +154,27 @@ P2P模型#没有中心服务器，或者说每个主机同时是客户机和�
 本地服务器以迭代方式向根服务器查询（给出答案或者找答案的地方）
 每个DNS服务器上有高速缓存，方便快速查找
 额，本机到本地域名服务器这个递归了个寂寞</description>
+    </item>
+    
+    <item>
+      <title>IPv4</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</guid>
+      <description>IPv4#IP协议定义IP分组和其数据格式
+一个IP分组的格式为：首部+数据
+首部中的重要字段：版本，长度，，，，
+当IP数据报较长超过链路层的MTU时，将其分为多个小IP数据报，称为片，在目的地被重新组装（具体是通过标识号来确定属于同一个IP数据报下）
+IP地址：每台主机或路由器都分配一个，32位
+由网络号+主机号
+有些特殊的IP地址
+网络地址转换NAT#讲专用网络地址转换为共用地址，专用网只占一个全球IP地址
+局域网LAN的私有IP地址，私有IP地址是可重用的
+NAT路由器的地址是global的，不同端口映射到局域网内不同私有IP地址
+所以在互联网上的人是不知道局域网的构成的，保存在NAT路由器上面
+子网#三级IP地址结构：网络号:子网号:主机号
+子网掩码</description>
     </item>
     
     <item>
