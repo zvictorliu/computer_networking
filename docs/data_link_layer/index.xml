@@ -7,44 +7,84 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://zvictorliu.github.io/computer_networking/data_link_layer/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>3.1 功能</title>
-      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8A%9F%E8%83%BD/</guid>
-      <description>数据链路层的功能#为网络层提供服务 对链路进行管理，建立、维护、释放等等 帧处理 流量控制 差错控制，使发送方确认接收方是否正确收到 服务网络层#面向连接和无连接的区别
-链路管理#面向连接
-帧#帧定界
-帧同步
-透明传输
-流量控制#限制发送速率不超过接收速率
-不只数据链路层才有
-差错控制#位错：循环冗余校验CRC来发现，然后进行自动重传请求ARQ来重新传
-帧错：定时器和编号机制</description>
-    </item>
-    
-    <item>
-      <title>组帧</title>
+      <title>3.1 帧的封装</title>
       <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E7%BB%84%E5%B8%A7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E7%BB%84%E5%B8%A7/</guid>
-      <description>组帧#帧的意义在于，如果出错不必完全重新传
-组帧就是帧的封装，对上层传下来的信息进行封装
-信息以帧为最小单位，是比特流中的一段，所以有首部和尾部
-有四种组装方式
-1 字符计数法#2 字符填充法#3 零比特填充#4 违规编码#</description>
+      <description>组帧#将数据封装成帧的意义在于，如果出错不必完全重新传所有数据
+组帧就是帧的封装，对上层传下来的信息进行封装，添加包含控制信息的帧头和帧尾
+传给物理层将帧转成比特流发送出去，而作为接收方要从比特流中提取出一个个帧，就需要帧头帧尾的控制信息，知道什么时候开始什么时候结束，这就是帧定界
+透明传输：数据链路层对上层传下来的数据没有任何限制，对于上层来说数据链路层是透明的; 如果数据中有部分和帧定界符意义，就会出现匹配错误，这样就叫对上层有限制了（不能包含和定界符相同的字段）
+为实现透明传输的方法：
+面向字节的物理链路：字符填充 面向比特的物理链路：比特填充 啥叫面向字节、面向比特？
+1 字符计数法#在帧的头部使用一个计数字段，表面帧内的字符数，从而确定帧的结束
+但是这样风险比较大，一个有错后面都错了
+2 字符填充法#在首尾添加特定的字符
+同时如果数据中有同样的字符，为了不误判，需要扫描一遍发现有同样特殊字符后就在其前面添加转义字符
+接收时扫到转义字符就知道这个不是数据并且后面也不是特殊字符
+如果有和转义字符一样的，也可以通过首次出现来辨别
+3 零比特填充#面向比特的协议中使用
+采用比特组合01111110来定界，对于数据中同样的部分：扫描，每出现5个连续的1就添加0
+接收方扫描，每出现5个连续的1就删除后面的0
+4 违规编码#在物理层编码时采用的不同于用作区分01的其它编码方式
+比如在曼彻斯特编码中：高to低表示1，低to高表示0，那么就可以用高to高表示开始，低to低表示结束
+这样就不需要填充了
+前提是编码方式有冗余</description>
     </item>
     
     <item>
-      <title>差错控制</title>
+      <title>3.2 差错控制</title>
       <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6/</guid>
-      <description>差错控制#只针对比特差错：0和1弄反
-有检查差错的编码和纠正差错的编码
-检错#纠错#</description>
+      <description>差错控制#比特差错：即误码，0可能变成1，1可能变成0
+一段时间内出错的比特占比即为误码率(Bit Error Rate, BER)
+通过差错检测码来检查出是否出现差错，并有相应的纠错措施
+检错#奇偶校验#奇偶校验是通常，实际只是选一种
+在数据后面添加1位，让整个数据包括校验位在内的1的个数为奇数（奇校验）或者偶数（偶校验）
+这种只能在奇数偶数层面判断，并不能定位，也有范围限制（漏检）
+循环冗余码#循环冗余码CRC
+规定多项式 构造被除数：在待发送信息后面添加生成多项式阶数个0 构造除数：生成多项式各项系数（只有01）构成的比特串 除法，计算冗余码 补全余数使得位数和阶数相同（在前面补零），叫做帧检验序列FCS 在FCS放在待发送数据之后发送
+接收方对收到数据除法，余数为0则说明没有误码
+纠错#</description>
+    </item>
+    
+    <item>
+      <title>3.3 可靠传输机制</title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/</guid>
+      <description>可靠传输机制#</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E4%BB%8B%E8%B4%A8%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E4%BB%8B%E8%B4%A8%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%B9%BF%E5%9F%9F%E7%BD%91/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%B9%BF%E5%9F%9F%E7%BD%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6/</guid>
+      <description></description>
     </item>
     
   </channel>

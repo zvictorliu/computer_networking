@@ -3,25 +3,15 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="万维网#一切事物使用统一资源定位符URL标识，通过超文本传输协议HTTP传送，而超文本标记语言HTML对文档结构的标记，使得能够在本地显示
-浏览器，就是万维网在主机上的客户程序，而存万维网文档的主机成为万维网服务器
-HTTP#浏览器向万维网服务器请求万维网文档以及传送给浏览器的协议
-这点就是《网络是怎样连接的》讲的内容
-HTTP是无连接的，不需要先建立连接
-HTTP是无状态的，并不记忆客户是否访问过，但如果想记忆需要用到Cookie，服务器给用户分配一个识别码，以后用户访问的报文是带着识别码的，从而在服务器的数据库找到活动记录">
+<meta name="description" content="可靠传输机制#">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="WWW万维网" />
-<meta property="og:description" content="万维网#一切事物使用统一资源定位符URL标识，通过超文本传输协议HTTP传送，而超文本标记语言HTML对文档结构的标记，使得能够在本地显示
-浏览器，就是万维网在主机上的客户程序，而存万维网文档的主机成为万维网服务器
-HTTP#浏览器向万维网服务器请求万维网文档以及传送给浏览器的协议
-这点就是《网络是怎样连接的》讲的内容
-HTTP是无连接的，不需要先建立连接
-HTTP是无状态的，并不记忆客户是否访问过，但如果想记忆需要用到Cookie，服务器给用户分配一个识别码，以后用户访问的报文是带着识别码的，从而在服务器的数据库找到活动记录" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="3.3 可靠传输机制" />
+<meta property="og:description" content="可靠传输机制#" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/" /><meta property="article:section" content="application_layer" />
+<meta property="og:url" content="https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/" /><meta property="article:section" content="data_link_layer" />
 
 
-<title>WWW万维网 | Computer Networking</title>
+<title>3.3 可靠传输机制 | Computer Networking</title>
 <link rel="manifest" href="/computer_networking/manifest.json">
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
@@ -207,7 +197,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/" class="">3.3 可靠传输机制</a>
+    <a href="/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/" class="active">3.3 可靠传输机制</a>
   
 
         </li>
@@ -397,7 +387,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/" class="active">WWW万维网</a>
+    <a href="/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/" class="">WWW万维网</a>
   
 
         </li>
@@ -462,7 +452,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/computer_networking/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>WWW万维网</strong>
+  <strong>3.3 可靠传输机制</strong>
 
   <label for="toc-control">
     
@@ -476,11 +466,7 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#http">HTTP</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
 
 
 
@@ -491,20 +477,10 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="万维网">
-  万维网
-  <a class="anchor" href="#%e4%b8%87%e7%bb%b4%e7%bd%91">#</a>
+  <article class="markdown"><h1 id="可靠传输机制">
+  可靠传输机制
+  <a class="anchor" href="#%e5%8f%af%e9%9d%a0%e4%bc%a0%e8%be%93%e6%9c%ba%e5%88%b6">#</a>
 </h1>
-<p>一切事物使用统一资源定位符<code>URL</code>标识，通过超文本传输协议<code>HTTP</code>传送，而超文本标记语言<code>HTML</code>对文档结构的标记，使得能够在本地显示</p>
-<p>浏览器，就是万维网在主机上的客户程序，而存万维网文档的主机成为万维网服务器</p>
-<h2 id="http">
-  HTTP
-  <a class="anchor" href="#http">#</a>
-</h2>
-<p>浏览器向万维网服务器请求万维网文档以及传送给浏览器的协议</p>
-<p>这点就是《网络是怎样连接的》讲的内容</p>
-<p>HTTP是无连接的，不需要先建立连接</p>
-<p>HTTP是无状态的，并不记忆客户是否访问过，但如果想记忆需要用到<code>Cookie</code>，服务器给用户分配一个识别码，以后用户访问的报文是带着识别码的，从而在服务器的数据库找到活动记录</p>
 </article>
  
       
@@ -544,11 +520,7 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#http">HTTP</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
 
 
  
