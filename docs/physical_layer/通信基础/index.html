@@ -3,44 +3,56 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="通信基础#首先需要了解一些基本概念，然后是著名的奈奎斯特定理和香农定理
+<meta name="description" content="通信基础#首先需要了解一些基本概念，然后是著名的奈奎斯特定理和香农定理
 进一步讲编码、交换等计数
 一个典型的通信系统模型：
-1 基本概念#1.1 术语#数据和信号：数据是信息实体，信号是物理存在形式
-码元：一个固定时长的信号波形表示一位数字（\(k\)进制），不是一个比特
-信道：一条线路的逻辑部分
-速率：
-波特率：
-带宽：
-1.2 传输方式#串行和并行传输，这个不必多说
-同步传输：先告诉对方我要发多少
+基本概念#传输和交换方式#串行和并行传输，这个不必多说
+同步传输：先告诉对方我要发多少（曼彻斯特编码）
 异步传输：起始位和终止位
-1.3 交互模式#单工：一个方向 半双工：双向，但某一时刻是单向 全双工：可以同时 注意，一个方向就需要一条信道
-2 定理#2.1 奈奎斯特#2.2 香农#3 编码与调制#转为数字信号叫编码，转为模拟信号叫调制
-3.1 数字型数据 to 数字信号#能够区分开0和1，具体用什么样的数字信号有很多种
-3.2 数字型数据 to 模拟信号#发送端调制，接收端解调，将01藏在正弦波当中：
-3.3 模拟型数据 to 数字信号#PCM：采样、量化、编码
-3.4 模拟型数据 to 模拟信号#大概也是调制解调吧">
+全双工和半双工：也明白
+信道#信道是逻辑上的概念，代表一条通路
+传输媒体中可以有多条信道
+定理#奈奎斯特#香农#编码与调制#发送的消息，承载在数据之中，电磁表现为信号
+其中，信号源发出的原始电信号叫做基带信号，可分数字和模拟的
+转为数字信号叫编码，转为模拟信号叫调制
+码元：在时间域上，表示一个离散数值的基本波形
+数字型数据 to 数字信号#用什么样的数字信号表示0，用什么样的数字信号表示1
+同步问题：多个相同的码元，怎么区分得开；一般需要时钟同步信号
+曼彻斯特编码采用了跳变来表示，确保都存在跳变，把时钟结合在一起；以太网就是曼彻斯特编码，一般也就考这个
+差分Manchester编码：跳变表示时钟，是否发送变化表示0 1
+数字型数据 to 模拟信号#发送端调制，接收端解调，将01藏在正弦波当中：
+基本调制：
+模拟型数据 to 数字信号#PCM：采样、量化、编码
+模拟型数据 to 模拟信号#大概也是调制解调吧
+物理介质#传输介质不属于物理层！！！
+有导向性（通道）和非导向性（辐射）两种
+双绞线 同轴电缆 光纤 无线电波、微波、红外、激光等等 ">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="2.1 通信基础知识" />
-<meta property="og:description" content="通信基础#首先需要了解一些基本概念，然后是著名的奈奎斯特定理和香农定理
+<meta property="og:description" content="通信基础#首先需要了解一些基本概念，然后是著名的奈奎斯特定理和香农定理
 进一步讲编码、交换等计数
 一个典型的通信系统模型：
-1 基本概念#1.1 术语#数据和信号：数据是信息实体，信号是物理存在形式
-码元：一个固定时长的信号波形表示一位数字（\(k\)进制），不是一个比特
-信道：一条线路的逻辑部分
-速率：
-波特率：
-带宽：
-1.2 传输方式#串行和并行传输，这个不必多说
-同步传输：先告诉对方我要发多少
+基本概念#传输和交换方式#串行和并行传输，这个不必多说
+同步传输：先告诉对方我要发多少（曼彻斯特编码）
 异步传输：起始位和终止位
-1.3 交互模式#单工：一个方向 半双工：双向，但某一时刻是单向 全双工：可以同时 注意，一个方向就需要一条信道
-2 定理#2.1 奈奎斯特#2.2 香农#3 编码与调制#转为数字信号叫编码，转为模拟信号叫调制
-3.1 数字型数据 to 数字信号#能够区分开0和1，具体用什么样的数字信号有很多种
-3.2 数字型数据 to 模拟信号#发送端调制，接收端解调，将01藏在正弦波当中：
-3.3 模拟型数据 to 数字信号#PCM：采样、量化、编码
-3.4 模拟型数据 to 模拟信号#大概也是调制解调吧" />
+全双工和半双工：也明白
+信道#信道是逻辑上的概念，代表一条通路
+传输媒体中可以有多条信道
+定理#奈奎斯特#香农#编码与调制#发送的消息，承载在数据之中，电磁表现为信号
+其中，信号源发出的原始电信号叫做基带信号，可分数字和模拟的
+转为数字信号叫编码，转为模拟信号叫调制
+码元：在时间域上，表示一个离散数值的基本波形
+数字型数据 to 数字信号#用什么样的数字信号表示0，用什么样的数字信号表示1
+同步问题：多个相同的码元，怎么区分得开；一般需要时钟同步信号
+曼彻斯特编码采用了跳变来表示，确保都存在跳变，把时钟结合在一起；以太网就是曼彻斯特编码，一般也就考这个
+差分Manchester编码：跳变表示时钟，是否发送变化表示0 1
+数字型数据 to 模拟信号#发送端调制，接收端解调，将01藏在正弦波当中：
+基本调制：
+模拟型数据 to 数字信号#PCM：采样、量化、编码
+模拟型数据 to 模拟信号#大概也是调制解调吧
+物理介质#传输介质不属于物理层！！！
+有导向性（通道）和非导向性（辐射）两种
+双绞线 同轴电缆 光纤 无线电波、微波、红外、激光等等 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zvictorliu.github.io/computer_networking/physical_layer/%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="physical_layer" />
 
@@ -50,7 +62,7 @@
 <link rel="icon" href="/computer_networking/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/computer_networking/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/computer_networking/flexsearch.min.js"></script>
-  <script defer src="/computer_networking/en.search.min.fcf664a67e99ab12a625234ac887ce01b9928a9bdc8dad11410236ca63221630.js" integrity="sha256-/PZkpn6ZqxKmJSNKyIfOAbmSipvcja0RQQI2ymMiFjA=" crossorigin="anonymous"></script>
+  <script defer src="/computer_networking/en.search.min.6bb2700596557cb4f6dade21342bcb80f2f9ac1ca0a68deff59a0ad19e8d3679.js" integrity="sha256-a7JwBZZVfLT22t4hNCvLgPL5rBygpo3v9ZoK0Z6NNnk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -496,28 +508,27 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-基本概念">1 基本概念</a>
+    <li><a href="#基本概念">基本概念</a>
       <ul>
-        <li><a href="#11-术语">1.1 术语</a></li>
-        <li><a href="#12-传输方式">1.2 传输方式</a></li>
-        <li><a href="#13-交互模式">1.3 交互模式</a></li>
+        <li><a href="#传输和交换方式">传输和交换方式</a></li>
+        <li><a href="#信道">信道</a></li>
       </ul>
     </li>
-    <li><a href="#2-定理">2 定理</a>
+    <li><a href="#定理">定理</a>
       <ul>
-        <li><a href="#21-奈奎斯特">2.1 奈奎斯特</a></li>
-        <li><a href="#22-香农">2.2 香农</a></li>
+        <li><a href="#奈奎斯特">奈奎斯特</a></li>
+        <li><a href="#香农">香农</a></li>
       </ul>
     </li>
-    <li><a href="#3-编码与调制">3 编码与调制</a>
+    <li><a href="#编码与调制">编码与调制</a>
       <ul>
-        <li><a href="#31-数字型数据-to-数字信号">3.1 数字型数据 to 数字信号</a></li>
-        <li><a href="#32-数字型数据-to-模拟信号">3.2 数字型数据 to 模拟信号</a></li>
-        <li><a href="#33-模拟型数据-to-数字信号">3.3 模拟型数据 to 数字信号</a></li>
-        <li><a href="#34-模拟型数据-to-模拟信号">3.4 模拟型数据 to 模拟信号</a></li>
+        <li><a href="#数字型数据-to-数字信号">数字型数据 to 数字信号</a></li>
+        <li><a href="#数字型数据-to-模拟信号">数字型数据 to 模拟信号</a></li>
+        <li><a href="#模拟型数据-to-数字信号">模拟型数据 to 数字信号</a></li>
+        <li><a href="#模拟型数据-to-模拟信号">模拟型数据 to 模拟信号</a></li>
       </ul>
     </li>
-    <li><a href="#4-物理介质">4 物理介质</a></li>
+    <li><a href="#物理介质">物理介质</a></li>
   </ul>
 </nav>
 
@@ -538,85 +549,87 @@ https://github.com/alex-shpak/hugo-book
 <p>进一步讲编码、交换等计数</p>
 <p>一个典型的通信系统模型：</p>
 <img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230610163210580.png" alt="image-20230610163210580" style="zoom:50%;" />
-<h2 id="1-基本概念">
-  1 基本概念
-  <a class="anchor" href="#1-%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">#</a>
+<h2 id="基本概念">
+  基本概念
+  <a class="anchor" href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">#</a>
 </h2>
-<h3 id="11-术语">
-  1.1 术语
-  <a class="anchor" href="#11-%e6%9c%af%e8%af%ad">#</a>
+<h3 id="传输和交换方式">
+  传输和交换方式
+  <a class="anchor" href="#%e4%bc%a0%e8%be%93%e5%92%8c%e4%ba%a4%e6%8d%a2%e6%96%b9%e5%bc%8f">#</a>
 </h3>
-<p>数据和信号：数据是信息实体，信号是物理存在形式</p>
-<p><code>码元</code>：一个固定时长的信号波形表示一位数字（
-<link rel="stylesheet" href="/computer_networking/katex/katex.min.css" />
-<script defer src="/computer_networking/katex/katex.min.js"></script>
-<script defer src="/computer_networking/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
-  \(k\)
-</span>
-进制），不是一个比特</p>
-<p><code>信道</code>：一条线路的逻辑部分</p>
-<p><code>速率</code>：</p>
-<p><code>波特率</code>：</p>
-<p><code>带宽</code>：</p>
-<h3 id="12-传输方式">
-  1.2 传输方式
-  <a class="anchor" href="#12-%e4%bc%a0%e8%be%93%e6%96%b9%e5%bc%8f">#</a>
+<p><em>串行和并行</em>传输，这个不必多说</p>
+<p><em>同步</em>传输：先告诉对方我要发多少（曼彻斯特编码）</p>
+<p><em>异步</em>传输：起始位和终止位</p>
+<p>全双工和半双工：也明白</p>
+<h3 id="信道">
+  信道
+  <a class="anchor" href="#%e4%bf%a1%e9%81%93">#</a>
 </h3>
-<p>串行和并行传输，这个不必多说</p>
-<p>同步传输：先告诉对方我要发多少</p>
-<p>异步传输：起始位和终止位</p>
-<h3 id="13-交互模式">
-  1.3 交互模式
-  <a class="anchor" href="#13-%e4%ba%a4%e4%ba%92%e6%a8%a1%e5%bc%8f">#</a>
-</h3>
-<ul>
-<li>单工：一个方向</li>
-<li>半双工：双向，但某一时刻是单向</li>
-<li>全双工：可以同时</li>
-</ul>
-<p>注意，一个方向就需要一条信道</p>
-<h2 id="2-定理">
-  2 定理
-  <a class="anchor" href="#2-%e5%ae%9a%e7%90%86">#</a>
+<p>信道是逻辑上的概念，代表一条通路</p>
+<p>传输媒体中可以有多条信道</p>
+<h2 id="定理">
+  定理
+  <a class="anchor" href="#%e5%ae%9a%e7%90%86">#</a>
 </h2>
-<h3 id="21-奈奎斯特">
-  2.1 奈奎斯特
-  <a class="anchor" href="#21-%e5%a5%88%e5%a5%8e%e6%96%af%e7%89%b9">#</a>
+<h3 id="奈奎斯特">
+  奈奎斯特
+  <a class="anchor" href="#%e5%a5%88%e5%a5%8e%e6%96%af%e7%89%b9">#</a>
 </h3>
-<h3 id="22-香农">
-  2.2 香农
-  <a class="anchor" href="#22-%e9%a6%99%e5%86%9c">#</a>
+<h3 id="香农">
+  香农
+  <a class="anchor" href="#%e9%a6%99%e5%86%9c">#</a>
 </h3>
-<h2 id="3-编码与调制">
-  3 编码与调制
-  <a class="anchor" href="#3-%e7%bc%96%e7%a0%81%e4%b8%8e%e8%b0%83%e5%88%b6">#</a>
+<h2 id="编码与调制">
+  编码与调制
+  <a class="anchor" href="#%e7%bc%96%e7%a0%81%e4%b8%8e%e8%b0%83%e5%88%b6">#</a>
 </h2>
+<p>发送的<code>消息</code>，承载在<code>数据</code>之中，电磁表现为<code>信号</code></p>
+<p>其中，信号源发出的原始电信号叫做<code>基带信号</code>，可分数字和模拟的</p>
 <p>转为数字信号叫编码，转为模拟信号叫调制</p>
-<h3 id="31-数字型数据-to-数字信号">
-  3.1 数字型数据 to 数字信号
-  <a class="anchor" href="#31-%e6%95%b0%e5%ad%97%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7">#</a>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230618113828333.png" alt="image-20230618113828333" /></p>
+<p><code>码元</code>：在时间域上，表示一个离散数值的基本波形</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230618114003764.png" alt="image-20230618114003764" /></p>
+<h3 id="数字型数据-to-数字信号">
+  数字型数据 to 数字信号
+  <a class="anchor" href="#%e6%95%b0%e5%ad%97%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7">#</a>
 </h3>
-<p>能够区分开0和1，具体用什么样的数字信号有很多种</p>
-<h3 id="32-数字型数据-to-模拟信号">
-  3.2 数字型数据 to 模拟信号
-  <a class="anchor" href="#32-%e6%95%b0%e5%ad%97%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%a8%a1%e6%8b%9f%e4%bf%a1%e5%8f%b7">#</a>
+<blockquote>
+<p>用什么样的数字信号表示0，用什么样的数字信号表示1</p>
+</blockquote>
+<p>同步问题：多个相同的码元，怎么区分得开；一般需要时钟同步信号</p>
+<p>曼彻斯特编码采用了跳变来表示，确保都存在跳变，把时钟结合在一起；以太网就是曼彻斯特编码，一般也就考这个</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230618114531555.png" alt="image-20230618114531555" /></p>
+<p>差分Manchester编码：跳变表示时钟，是否发送变化表示0 1</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230618114711339.png" alt="image-20230618114711339" /></p>
+<h3 id="数字型数据-to-模拟信号">
+  数字型数据 to 模拟信号
+  <a class="anchor" href="#%e6%95%b0%e5%ad%97%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%a8%a1%e6%8b%9f%e4%bf%a1%e5%8f%b7">#</a>
 </h3>
 <p>发送端调制，接收端解调，将01藏在正弦波当中：</p>
-<img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230610173512689.png" alt="image-20230610173512689" style="zoom:50%;" />
-<h3 id="33-模拟型数据-to-数字信号">
-  3.3 模拟型数据 to 数字信号
-  <a class="anchor" href="#33-%e6%a8%a1%e6%8b%9f%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7">#</a>
+<p>基本调制：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zvictorliu/typoraPics@main/img/image-20230618114922892.png" alt="image-20230618114922892" /></p>
+<h3 id="模拟型数据-to-数字信号">
+  模拟型数据 to 数字信号
+  <a class="anchor" href="#%e6%a8%a1%e6%8b%9f%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7">#</a>
 </h3>
 <p>PCM：采样、量化、编码</p>
-<h3 id="34-模拟型数据-to-模拟信号">
-  3.4 模拟型数据 to 模拟信号
-  <a class="anchor" href="#34-%e6%a8%a1%e6%8b%9f%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%a8%a1%e6%8b%9f%e4%bf%a1%e5%8f%b7">#</a>
+<h3 id="模拟型数据-to-模拟信号">
+  模拟型数据 to 模拟信号
+  <a class="anchor" href="#%e6%a8%a1%e6%8b%9f%e5%9e%8b%e6%95%b0%e6%8d%ae-to-%e6%a8%a1%e6%8b%9f%e4%bf%a1%e5%8f%b7">#</a>
 </h3>
 <p>大概也是调制解调吧</p>
-<h2 id="4-物理介质">
-  4 物理介质
-  <a class="anchor" href="#4-%e7%89%a9%e7%90%86%e4%bb%8b%e8%b4%a8">#</a>
+<h2 id="物理介质">
+  物理介质
+  <a class="anchor" href="#%e7%89%a9%e7%90%86%e4%bb%8b%e8%b4%a8">#</a>
 </h2>
+<p>传输介质不属于物理层！！！</p>
+<p>有导向性（通道）和非导向性（辐射）两种</p>
+<ul>
+<li>双绞线</li>
+<li>同轴电缆</li>
+<li>光纤</li>
+<li>无线电波、微波、红外、激光等等</li>
+</ul>
 </article>
  
       
@@ -658,28 +671,27 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-基本概念">1 基本概念</a>
+    <li><a href="#基本概念">基本概念</a>
       <ul>
-        <li><a href="#11-术语">1.1 术语</a></li>
-        <li><a href="#12-传输方式">1.2 传输方式</a></li>
-        <li><a href="#13-交互模式">1.3 交互模式</a></li>
+        <li><a href="#传输和交换方式">传输和交换方式</a></li>
+        <li><a href="#信道">信道</a></li>
       </ul>
     </li>
-    <li><a href="#2-定理">2 定理</a>
+    <li><a href="#定理">定理</a>
       <ul>
-        <li><a href="#21-奈奎斯特">2.1 奈奎斯特</a></li>
-        <li><a href="#22-香农">2.2 香农</a></li>
+        <li><a href="#奈奎斯特">奈奎斯特</a></li>
+        <li><a href="#香农">香农</a></li>
       </ul>
     </li>
-    <li><a href="#3-编码与调制">3 编码与调制</a>
+    <li><a href="#编码与调制">编码与调制</a>
       <ul>
-        <li><a href="#31-数字型数据-to-数字信号">3.1 数字型数据 to 数字信号</a></li>
-        <li><a href="#32-数字型数据-to-模拟信号">3.2 数字型数据 to 模拟信号</a></li>
-        <li><a href="#33-模拟型数据-to-数字信号">3.3 模拟型数据 to 数字信号</a></li>
-        <li><a href="#34-模拟型数据-to-模拟信号">3.4 模拟型数据 to 模拟信号</a></li>
+        <li><a href="#数字型数据-to-数字信号">数字型数据 to 数字信号</a></li>
+        <li><a href="#数字型数据-to-模拟信号">数字型数据 to 模拟信号</a></li>
+        <li><a href="#模拟型数据-to-数字信号">模拟型数据 to 数字信号</a></li>
+        <li><a href="#模拟型数据-to-模拟信号">模拟型数据 to 模拟信号</a></li>
       </ul>
     </li>
-    <li><a href="#4-物理介质">4 物理介质</a></li>
+    <li><a href="#物理介质">物理介质</a></li>
   </ul>
 </nav>
 
