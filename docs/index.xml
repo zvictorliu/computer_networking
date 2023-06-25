@@ -87,44 +87,76 @@
     </item>
     
     <item>
+      <title>4.1 IP地址</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/ip/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ip/</guid>
+      <description>IP地址#点分十进制表示法
+编址方法发展#分类编址#注：1~126是指最高的8位，最高位必须是0，因此表示范围是0~127，但是0和127都有特殊用，所以实际A类的范围是1~126
+只有A B C类地址才可被分配给各接口
+说“一个A类网络”：每个网络号代表一个网络，该网络下是多个主机
+特殊地址：主机号全0表示网络地址，主机号全1表示广播地址，不分配给主机接口
+总结：A类网络0和127，主机全0和全1 这些不能指派
+具体是这些↕划分子网#从主机号位数中借出来分给子网号，从而对同一网络下大量的IP地址进行进一步划分几个子网（建小群）
+用子网掩码来表示借用了多少：网络号+子网号为1，主机号（划分之后的）为0，进行与运算就得到了网络地址（主机号全为0）；根据第一段的范围可以知道是哪类网络从而确定网络号位数
+默认子网掩码：没有子网划分（不借位）的情况
+无分类的编址方法#即CIDR，不再区别ABC和子网划分
+斜线表示法：表示网络前缀的比特数量
+同一网络前缀下连续的IP地址组成一个CIDR地址块，表示同一网络
+路由聚合：必经之路往后归为一个
+​	共同前缀法，同样的共同前缀是同一个下一跳
+​	前缀越长的路由更具体，因此在路由表当中进行最长前缀匹配
+分组格式#IP协议定义IP分组和其数据格式
+一个IP分组的格式为：首部+数据
+首部中的重要字段：版本，长度，，，，
+当IP数据报较长超过链路层的MTU时，将其分为多个小IP数据报，称为片，在目的地被重新组装（具体是通过标识号来确定属于同一个IP数据报下）
+网络地址转换NAT#将专用网络地址转换为共用地址，专用网只占一个全球IP地址，下面有用于内部管理的IP地址，对互联网隐藏
+这种私有地址只能在本网络下使用，和公网上的不是同一个主机，不同网络间复用
+只有NAT路由器的地址是global的，不同端口映射到局域网内不同私有IP地址，所以外面的人是通过NAT转换到内部的主机的。而为了统一性，在网内也有这么个格式和公有地址一样的来进行区分，只不过搜索范围局限在这里面而不是全球
+具体来说：本地网内一主机发送给网外的服务器，先发到NAT路由器上，NAT路由器修改数据报的源地址为自己的公网地址，并生成新端口号，发送给服务器，对于服务器来说并没有意识到，发回来，经过NAT路由表NAT路由器知道这个应该给谁
+所以就是一个中转站
+ARP DHCP ICMP#MAC地址（链路层）#广播信道需要地址来区分
+MAC地址是硬件写死的，也叫物理地址
+每个网络适配器有一个全球唯一的MAC地址（因为电磁波就是广播式的）
+但是，仅有MAC地址做标识无法区分不同网络
+地址解析协议ARP#链路传送时必须要MAC地址，所以需要通过IP地址找到MAC地址
+ARP高速缓存表：
+​	找得到，填入数据报发送
+​	找不到，广播-响应-建项
+动态主机配置协议DHCP#应用层，将计算机插入到新的网络，分频IP地址，不需要手工参与
+网际控制报文协议ICMP#网络层，报告差错和异常情况</description>
+    </item>
+    
+    <item>
+      <title>6.1 DHCP</title>
+      <link>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</guid>
+      <description>动态主机配置协议DHCP#主机访问web服务器需要配置IP地址、子网掩码、默认网关、DNS服务器等信息
+但是手工配置比较麻烦，于是设置了DHCP服务器，自动获取配置信息
+其过程是：
+客户启动DHCP：广播DHCP发现报文，此时由于还未配置IP地址等，数据报中的源IP地址用0.0.0.0，目的地址用255.255.255.255。这些是默认写好的，报文中还有自己的MAC地址和事务ID 所有设备收到数据报：对于DHCP客户端没有相应端口67，丢弃；对于DHCP服务器接收并进行响应 报文中有客户的MAC地址，服务器查找数据库中的配置信息。有则发送DHCP提供报文，没有则发送默认配置信息。目的IP仍然为广播地址 所有设备收到数据报：DHCP服务器有相应端口68因而丢弃，DHCP客户根据事务ID知道是自己请求的，接收 再次广播请求服务器同意（可能有多个DHCP服务器），此时还是0.0.0.0 服务器确认后，才进行配置 同时还有ARP检查IP地址是否已经被占用
+如果有路由器，路由器是不转发广播报文的
+办法是给路由器配置DHCP服务器的IP地址，使之成为中继代理，将广播报文只转发给DHCP服务器</description>
+    </item>
+    
+    <item>
       <title>UDP协议</title>
       <link>https://zvictorliu.github.io/computer_networking/transportation_layer/udp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/transportation_layer/udp/</guid>
-      <description>UDP协议#适合一次性传输较少数据，虽然通信不可靠但是应用层还是有可靠性机制的
-面向报文？？？
+      <description>UDP协议#适合一次性传输较少数据，虽然通信不可靠但是应用层还是有可靠性机制的
+面向报文：不对传下来的应用层报文处理（而TCP会拆分），保留边界
+应用层报文不可分割，是UDP数据报处理的最小单位
+UDP适合一次性传输少量数据、对可靠性要求不高的场景
 报文格式#首部+数据：
 其中校验和可选，不用时全为0，用来检查是否出错
-根据目的端口号找应用进程，找不到就丢弃，有ICMP发送不可达报文给发送端
-校验#增加一个12B的伪首部到首部前，然后进行计算：
-这个计算过程有点不太好说清楚
-发送端：
-计算要填入校验和的内容：全设置为0，然后把每16位取反码求和&amp;hellip; 发送（不包括伪首部和补零） 接收段：
-加上伪首部，同样计算求和，正常的话应该全为1 </description>
-    </item>
-    
-    <item>
-      <title>网络应用模型</title>
-      <link>https://zvictorliu.github.io/computer_networking/application_layer/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/application_layer/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/</guid>
-      <description>网络应用模型#啥意思？说不清楚，自行体会
-客户-服务器模型#这是我们熟悉的结构，许多应用都基于这个模型
-P2P模型#没有中心服务器，或者说每个主机同时是客户机和服务器，直接相互通信(任意一对叫Peer)
-比如Bittorrent、电驴这些就是基于P2P的，下载速度快
-图最直观：</description>
-    </item>
-    
-    <item>
-      <title>路由算法</title>
-      <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</guid>
-      <description>路由算法#根据路由表的维护：
-静态路由 手工配置 动态路由 相互连接的路由器彼此交换信息，按照一定算法优化出来 距离-向量算法#链路状态算法#层次路由概念#</description>
+根据目的端口号找应用进程，找不到就丢弃，由ICMP发送不可达报文给发送端
+校验#虽说可靠性机制在应用层，但校验还是UDP协议要做的，即宁差勿错
+计算方法有点复杂。。。</description>
     </item>
     
     <item>
@@ -195,68 +227,33 @@ ISO/OSI#ISO指的是国际标准化组织，他们提出的一种网络体系�
     </item>
     
     <item>
-      <title>DNS</title>
+      <title>4.2 路由算法</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</guid>
+      <description>路由算法#根据路由表的维护：
+静态路由 手工配置 动态路由 相互连接的路由器彼此交换信息，按照一定算法优化出来 距离-向量算法#链路状态算法#层次路由概念#</description>
+    </item>
+    
+    <item>
+      <title>6.2 DNS</title>
       <link>https://zvictorliu.github.io/computer_networking/application_layer/dns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/application_layer/dns/</guid>
-      <description>域名系统#Domain Name System, DNS 是一种命名系统，和IP地址对应
-层次域名空间：域名的语法规则
-域名服务器记域名的解析
-域名命名规则#从左到右是顶级域名
+      <description>域名系统DNS#访问Web服务器（测试连通性命令：ping），经典的就是浏览器输入网址-得到网页的过程
+Domain Name System, DNS 是一种命名系统，和IP地址对应，便于记忆
+层次域名：一个DNS服务器显然装不下那么多的域名，所以是分层次的
+域名命名规则#层次树状域名结构：低级在左，顶级在右
+各级域名交由上一级的域名管理机构管理，最高的由ICANN管理
 顶级域名TLD主要有三类：
-国家地区：.cn, .uk, .hk 等等 通用顶级域名：.com 公司，.org 非盈利组织，.gov政府 等等 基础结构域名：只有一个arpa，用于反向域名解析，不知道具体是啥 每个域由不同组织管理
+国家地区：.cn, .uk, .hk 等等 通用顶级域名：.com 公司，.org 非盈利组织，.gov政府 等等 基础结构域名：只有一个arpa，用于反向域名解析，IP地址反向解析为域名 国家下面的就由国家自己管理，名称相等的等级未必相同
 域名服务器#服务器进行域名解析，一个服务器的管辖范围称之为区
-这个在《网络是怎样连接的》深有体会
-根域名服务器知道所有顶级域名服务器IP地址，本地域名服务器无法解析就会首先区根域名服务器上找，但它其实只是中介，并不负责解析
-本机向本地域名服务器要
-权限域名服务器：主机都在这里登记
-域名解析过程#本机构造一个DNS请求报文发给本地域名服务器
-主机以递归方式向本地服务器查询
-本地服务器以迭代方式向根服务器查询（给出答案或者找答案的地方）
-每个DNS服务器上有高速缓存，方便快速查找
-额，本机到本地域名服务器这个递归了个寂寞</description>
-    </item>
-    
-    <item>
-      <title>IPv4</title>
-      <link>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</guid>
-      <description>IPv4#IP协议定义IP分组和其数据格式
-一个IP分组的格式为：首部+数据
-首部中的重要字段：版本，长度，，，，
-当IP数据报较长超过链路层的MTU时，将其分为多个小IP数据报，称为片，在目的地被重新组装（具体是通过标识号来确定属于同一个IP数据报下）
-IP地址：每台主机或路由器都分配一个，32位，由网络号+主机号组成
-IP地址分类：
-注：1~126是指最高的8位，最高位必须是0，因此表示范围是0~127，但是0和127都有特殊用，所以实际A类的范围是1~126
-有些特殊的IP地址
-网络地址转换NAT#将专用网络地址转换为共用地址，专用网只占一个全球IP地址，下面有用于内部管理的IP地址，对互联网隐藏
-局域网LAN的私有IP地址，私有IP地址是可重用的
-在 A B C三类中选择出了私有IP地址网段：
-NAT路由器的地址是global的，不同端口映射到局域网内不同私有IP地址
-所以在互联网上的人是不知道局域网的构成的，保存在NAT路由器上面
-NAT转换表： 全球IP:端口号 &amp;ndash; 本地IP: 端口号，多个本地IP映射到同一个全球IP，只是WAN端口号不同
-子网划分#同一个网络号下面，主机越多路由表项数就越多
-所以分了三级IP地址结构：网络号:子网号:主机号
-实际是从主机号位数中借出来分给子网号
-用子网掩码区分主机号位和网络号+子网号位
-无分类编址CIDR: 另一种编址IP地址的方法
-网络前缀+主机号，网络前缀位数不定，通过斜线记法表示位数
-就不再有A B C 分类
-同一网络前缀下连续的IP地址组成一个地址块，称为路由聚合
-上层网络前缀长度短，路由表项目少，内部延长前缀灵活划分子网
-在CIDR下，一般通过最长前缀匹配找路由表项
-转发表中每条路由：目的网络-下一跳地址
-根据目的IP的网络前缀查找路由表项，可能有多个匹配，选择前缀最长的，这样地址块最小，匹配更精准
-ARP DHCP ICMP#IP地址：分层次
-硬件地址（MAC)：平面式
-IP分组通过路由的转发到达LAN，然后在目标LAN中以数据链路层MAC地址广播寻址
-地址解析协议ARP：网络层，IP地址到MAC地址的映射，它是自动的
-动态主机配置协议DHCP：应用层，将计算机插入到新的网络，分频IP地址，不需要手工参与
-网际控制报文协议ICMP：网络层，报告差错和异常情况
-IPv6#采用更大的地址空间，从32位扩大到128位</description>
+根域名服务器：知道所有顶级域名服务器IP地址，因特网上有13“个”（实际是服务器集群），它不直接解析，而是返回所属顶级域名服务器的IP地址 顶级域名服务器：管理在其上注册的所有二级域名 权限域名服务器：管理某个区的域名，主机的域名在这里登记，这里有域名和IP地址的映射关系 本地域名服务器（默认）：本机的报文首先送往本地域名服务器，它起到代理的作用，将报文转发到上面等级结构中
+域名解析过程#递归查询#迭代查询#一般是，主机以递归方式向本地服务器查询（因为之间可能也是有转发的），本地服务器以迭代方式向根服务器查询，服务器给出答案或者找答案的地方
+同时，每个DNS服务器上有高速缓存，方便快速查找
+DNS报文使用UDP服务</description>
     </item>
     
     <item>
@@ -266,27 +263,13 @@ IPv6#采用更大的地址空间，从32位扩大到128位</description>
       
       <guid>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp/</guid>
       <description>TCP协议#报文格式#各个字段的含义：
-序号
-TCP传输的每个字节都按顺序编号，序号字段存入本报文段数据的第一个自己序号 确认号
-数据偏移（首部长度）
-保留
-紧急位URG
-确认位ACK
-推送位PSH
-复位位RST
-同步位SYN
-终止位FIN
-窗口
-紧急指针
-选项
-填充
-连接管理#建立#三个要求：
+序号 TCP传输的每个字节都按顺序编号，序号字段存入本报文段数据的第一个自己序号 连接管理#建立#三个要求：
 每一方都要知道对方的存在 双方需要协商某些参数 对运输实体资源分配 每条连接以两端的套接字确定，需要三次握手：
 客户机向服务器发送请求报文段
 这个报文段比较特殊，发出去后进入 SYN-SENT状态 服务器收到，同意，发回确认
 进入SYN-RCVD状态 客户机收到后，再向服务器发出确认
 进入ESTABLISHED状态 释放#四次握手
-可靠传输#首部的确认号是期望对方收到的下一个报文段的序号，检查这个
+可靠传输实现#首部的确认号是期望对方收到的下一个报文段的序号，检查这个
 累积确认方式，并不是按顺序的
 超时和冗余ACK时会进行重传
 收到比期望的序号大的，发送一个冗余ACK指明，当发送方收到3个冗余ACK后就会重传 流量控制#基于滑动窗口
@@ -299,85 +282,117 @@ TCP传输的每个字节都按顺序编号，序号字段存入本报文段数�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93/</guid>
-      <description>可靠传输机制#</description>
+      <description>可靠传输机制#数据链路层提供的服务可分两种：
+不可靠传输：仅丢弃有误码的帧，其它什么都不做 有线链路误码率低所以一般是提供的不可靠服务 这里不可靠但是上层还是可以变可靠 可靠传输：要确保发送端发的接收端都能收到，一般需要重传 无线链路易受干扰 开销会比较大 差错也不只比特差错，但就数据链路层来说就考虑可靠传输
+实现可靠传输的机制（不只适用于数据链路层）：
+停止-等待协议 SW#基于互联网通信
+收到后发送信息告知是否正确收到：
+但是如果DATA丢失了，就一致等不到确认信号
+所以一般会设置一个超时计时器
+如果确认丢失了，那么发送端超时重传，为了区分是同样还是重传，会设置一个编号
+进一步，确认也有编号（应对迟到情况，不够这种情况几乎不可能发生）
+之间需要等待太多时间，信道利用率比较低
+回退N帧协议 GBN#流水线方式
+给序号的比特数，决定序号范围
+发送端，接收端各设置一个（循环）滑动窗口
+发送端把滑动窗口内序号的分组依次连续发送 ，无需等待发送，窗口长度范围为 \(1 \leq W_T \leq 2^n -1\)（如果超过范围会出现无法分辨重传和新数据的情况）
+接收端窗口长度为1，接收窗口内的分组，因为是1所以就是依次按顺序接收，每接收一个，向前滑动一个位置
+如果只对按序到达的最后一个分组发送确认，这叫累积确认
+一个分组出现误码，丢弃，发送一个带编号的ACK（最后一个正确接收的编号），而后面的和窗口值对不上，也被丢弃，也都发送一个ACK
+发送方收到多个重复确认就知道该重传了，而不必等待超时计时器
+具体发送端窗口的移动应该是根据ACK的编号来移到相应位置的，当窗口内没有已发送时就继续发送
+选择重传协议 SR#仅重传有真的有差错的，不牵连后面的
+逐一确认
+接收窗口大于1，先接收【失序但是没有误码且序号在窗口内的】
+超范围：无法区分新旧，分组重复
+md这里面太细节了，文字描述不清楚
+视频最好自己演练一下</description>
     </item>
     
     <item>
-      <title>IPv6</title>
-      <link>https://zvictorliu.github.io/computer_networking/network_layer/ipv6/</link>
+      <title>4.3 路由协议</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ipv6/</guid>
-      <description>IPv6#</description>
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/</guid>
+      <description>路由协议#</description>
     </item>
     
     <item>
-      <title>文件传输协议</title>
+      <title>6.3 FTP</title>
       <link>https://zvictorliu.github.io/computer_networking/application_layer/ftp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/application_layer/ftp/</guid>
-      <description>文件传输协议#客户向服务器建立两个并行的TCP连接：
-控制连接：21号端口 数据连接：20号端口 服务器持续监听21号端口，等等客户连接，会话期间一直打开
+      <description>文件传输协议FTP#屏蔽了计算机的细节
+交互式访问：指明文件的类型与格式，并有权限
+仍是C/S模式：FTP客户可将文件上传至FTP服务器，客户也可从中下载 ，普通的PC也可以作为服务器
+工作原理#客户向服务 器建立两个并行的TCP连接：
+控制连接：客户用临时端口-服务器21号端口，传送控制命令 数据连接：另一个临时端口-服务器20号端口（主动模式才是），进行文件传送 控制连接在会话期间一直保持打开，而数据连接只有需要文件传输时才建立，传输完就关闭
 服务器上主进程负责接收请求，子进程负责处理单个请求
 控制进程接到请求后创建数据传送进程和数据连接
 两种数据传输模式：
-主动模式：PORT 客户端和服务器连接后，客户端自己开发一个端口，将端口号和PORT命令发送给服务器，服务器于是将20号端口和这个端口建立数据连接 被动模式：PASV 服务器收到PASV命令后，随机开放一个端口并告知客户端，客户端与之建立数据连接 FTP修改服务器上文件：
-先读回来，修改后再传上去 网络文件系统：
-能够远程操控，只复制一个小片段回来修改然后安装上去 </description>
+主动模式：PORT 客户端和服务器连接后，客户端自己开发一个端口，将端口号和PORT命令发送给服务器，服务器于是将20号端口和这个端口建立数据连接 被动模式：PASV 服务器收到PASV命令后，随机开放一个端口并告知客户端，客户端与之建立数据连接 FTP修改文件：先下载下来，修改后再传上去
+网络文件系统NFS：能够远程操控，只复制一个小片段回来修改然后安装上去</description>
     </item>
     
     <item>
-      <title>电子邮件</title>
-      <link>https://zvictorliu.github.io/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/</guid>
-      <description>电子邮件#异步通信方式算是一种思维革新吧
-把东西放到信箱里，不需要同时在场
-邮件系统结构#用户代理UA：用户和电子邮件系统的接口，一般就是电子邮件客户端
-邮件服务器：它们之间发送和接收邮件
-协议：用户代理和邮件服务器之间的协议
-邮件格式和MIME#邮件的格式是 首部+主体
-首部包括：
-From: 源（UA帮填） To: 目标 Subject: 可选，用户填写主题 多用途网际邮件扩充MIME: 在SMTP基础上定义非ASCII码的编码规则，所以不只发英文文本还可以发附件
-STMP和POP3#STMP#连接建立：发送服务器扫描缓冲区，发现有邮件就去和接收服务器建立连接，并发送HELO命令测试
-邮件传送：
-先MAIL FROM: &amp;lt;xxx&amp;gt;命令，看是否有OK返回，检查是否准备好接收 发送 RCPT TO: &amp;lt;xxx&amp;gt;命令，看是否有OK返回，检查地址是否正确 发送DATA命令，理论返回354 start mail input; end with &amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;.&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt; CR（Carriage Return）表示回车，CR（Carriage Return）表示回车，但这个跟操作系统有关，Windows下一行是CR+LF，而Linux只有LF，所以我们git有时候会有这个东西的替换 然后发送具体内容，回复OK 发出QUIT，回复xxx POP3和IMAP#下载并保留，下载并删除
-IMAP则功能更多
-基于万维网的，用户和服务器之间用HTTP</description>
-    </item>
-    
-    <item>
-      <title>WWW万维网</title>
-      <link>https://zvictorliu.github.io/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/</guid>
-      <description>万维网#一切事物使用统一资源定位符URL标识，通过超文本传输协议HTTP传送，而超文本标记语言HTML对文档结构的标记，使得能够在本地显示
-浏览器，就是万维网在主机上的客户程序，而存万维网文档的主机成为万维网服务器
-HTTP#浏览器向万维网服务器请求万维网文档以及传送给浏览器的协议
-这点就是《网络是怎样连接的》讲的内容
-HTTP是无连接的，不需要先建立连接
-HTTP是无状态的，并不记忆客户是否访问过，但如果想记忆需要用到Cookie，服务器给用户分配一个识别码，以后用户访问的报文是带着识别码的，从而在服务器的数据库找到活动记录</description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>3.4 介质访问控制</title>
       <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E4%BB%8B%E8%B4%A8%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E4%BB%8B%E8%B4%A8%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</guid>
-      <description></description>
+      <description>介质访问控制#隔离在同一信道上传输的来自其它结点的信号，即决定广播信道中信道的分配
+信道划分#其实就是多路复用技术
+频分多路复用#时分多路复用#波分多路复用#码分多路复用#随机介质访问#ALOHA协议#CSMA协议#CSMA/CD协议#CSMA/CA协议#轮询#令牌传递协议</description>
     </item>
     
     <item>
-      <title></title>
+      <title>6.4 E-mail</title>
+      <link>https://zvictorliu.github.io/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/application_layer/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/</guid>
+      <description>电子邮件E-mail#异步通信方式算是一种思维革新吧
+把东西放到信箱里，不需要同时在场
+邮件系统结构#用户代理UA：用户和电子邮件系统的接口，一般就是电子邮件客户端软件
+邮件服务器：它们之间发送和接收邮件，服务商提供
+协议：用户代理和邮件服务器之间的协议
+过程是这样的：服务器转发缓存队列里的邮件，用户在服务器上有个信箱
+协议包括发送和读取：
+STMP和POP3#STMP#发送服务器与接收服务器的连接建立：发送服务器周期性扫描缓冲区，发现有邮件就去和接收服务器建立TCP连接（25）
+它们之间是命令-应答的交互方式
+邮件传送：
+先MAIL FROM: &amp;lt;xxx&amp;gt;命令，看是否有OK返回，检查是否准备好接收 发送 RCPT TO: &amp;lt;xxx&amp;gt;命令，看是否有OK返回，检查地址是否正确 发送DATA命令，理论返回354 start mail input; end with &amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt;.&amp;lt;CR&amp;gt;&amp;lt;LF&amp;gt; CR（Carriage Return）表示回车，CR（Carriage Return）表示回车，但这个跟操作系统有关，Windows下一行是CR+LF，而Linux只有LF，所以我们git有时候会有这个东西的替换 然后发送具体内容，回复OK 发出QUIT，回复xxx POP3和IMAP#邮局协议POP：TCP 110，只能下载（可选是否删除），不能进行管理
+因特网报文存取协议IMAP：TCP 143，功能更强大，可以在主机上操作服务器上的邮箱
+邮件格式和MIME#邮件的格式是 信封+内容（包括首部和主体）
+首部包括一些关键字：
+From: 源（UA帮填） To: 目标 Subject: 可选，用户填写主题 邮件系统自动从首部中提取需要的信息写在信封上
+SMP只能传送ASCII码文本数据，于是有多用途网际邮件扩充MIME: 在SMTP基础上定义非ASCII码的编码规则，将非ASCII码数据转换
+补充：现在的基于WWW的电子邮件，浏览器HTTP协议</description>
+    </item>
+    
+    <item>
+      <title>3.5 局域网与广域网</title>
       <link>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%B9%BF%E5%9F%9F%E7%BD%91/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zvictorliu.github.io/computer_networking/data_link_layer/%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8E%E5%B9%BF%E5%9F%9F%E7%BD%91/</guid>
-      <description></description>
+      <description>局域网与广域网#LAN#以太网#无线局域网#VLAN#广域网#PPP协议#用户与ISP连接所用协议</description>
+    </item>
+    
+    <item>
+      <title>6.5 WWW</title>
+      <link>https://zvictorliu.github.io/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/application_layer/%E4%B8%87%E7%BB%B4%E7%BD%91/</guid>
+      <description>万维网#它并发计算机网络，而是一个信息储藏所，是一个分布式应用
+文档存于WWW服务器
+一切事物使用统一资源定位符URL标识，通过超文本传输协议HTTP传送，用超文本标记语言HTML对文档结构的标记描述网页的结构和内容，CSS描述网页的样式，JavaScript控制网页的行为，浏览器进行渲染
+HTTP#浏览器和WWW服务器请求、传输的协议
+HTTP是无连接的，不需要先建立连接
+HTTP是无状态的，并不记忆客户是否访问过，但如果想记忆需要用到Cookie，服务器给用户分配一个识别码，以后用户访问的报文是带着识别码的，从而在服务器的数据库找到活动记录</description>
     </item>
     
     <item>

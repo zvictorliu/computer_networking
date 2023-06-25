@@ -7,7 +7,49 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://zvictorliu.github.io/computer_networking/network_layer/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>路由算法</title>
+      <title>4.1 IP地址</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/ip/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ip/</guid>
+      <description>IP地址#点分十进制表示法
+编址方法发展#分类编址#注：1~126是指最高的8位，最高位必须是0，因此表示范围是0~127，但是0和127都有特殊用，所以实际A类的范围是1~126
+只有A B C类地址才可被分配给各接口
+说“一个A类网络”：每个网络号代表一个网络，该网络下是多个主机
+特殊地址：主机号全0表示网络地址，主机号全1表示广播地址，不分配给主机接口
+总结：A类网络0和127，主机全0和全1 这些不能指派
+具体是这些↕划分子网#从主机号位数中借出来分给子网号，从而对同一网络下大量的IP地址进行进一步划分几个子网（建小群）
+用子网掩码来表示借用了多少：网络号+子网号为1，主机号（划分之后的）为0，进行与运算就得到了网络地址（主机号全为0）；根据第一段的范围可以知道是哪类网络从而确定网络号位数
+默认子网掩码：没有子网划分（不借位）的情况
+无分类的编址方法#即CIDR，不再区别ABC和子网划分
+斜线表示法：表示网络前缀的比特数量
+同一网络前缀下连续的IP地址组成一个CIDR地址块，表示同一网络
+路由聚合：必经之路往后归为一个
+​	共同前缀法，同样的共同前缀是同一个下一跳
+​	前缀越长的路由更具体，因此在路由表当中进行最长前缀匹配
+分组格式#IP协议定义IP分组和其数据格式
+一个IP分组的格式为：首部+数据
+首部中的重要字段：版本，长度，，，，
+当IP数据报较长超过链路层的MTU时，将其分为多个小IP数据报，称为片，在目的地被重新组装（具体是通过标识号来确定属于同一个IP数据报下）
+网络地址转换NAT#将专用网络地址转换为共用地址，专用网只占一个全球IP地址，下面有用于内部管理的IP地址，对互联网隐藏
+这种私有地址只能在本网络下使用，和公网上的不是同一个主机，不同网络间复用
+只有NAT路由器的地址是global的，不同端口映射到局域网内不同私有IP地址，所以外面的人是通过NAT转换到内部的主机的。而为了统一性，在网内也有这么个格式和公有地址一样的来进行区分，只不过搜索范围局限在这里面而不是全球
+具体来说：本地网内一主机发送给网外的服务器，先发到NAT路由器上，NAT路由器修改数据报的源地址为自己的公网地址，并生成新端口号，发送给服务器，对于服务器来说并没有意识到，发回来，经过NAT路由表NAT路由器知道这个应该给谁
+所以就是一个中转站
+ARP DHCP ICMP#MAC地址（链路层）#广播信道需要地址来区分
+MAC地址是硬件写死的，也叫物理地址
+每个网络适配器有一个全球唯一的MAC地址（因为电磁波就是广播式的）
+但是，仅有MAC地址做标识无法区分不同网络
+地址解析协议ARP#链路传送时必须要MAC地址，所以需要通过IP地址找到MAC地址
+ARP高速缓存表：
+​	找得到，填入数据报发送
+​	找不到，广播-响应-建项
+动态主机配置协议DHCP#应用层，将计算机插入到新的网络，分频IP地址，不需要手工参与
+网际控制报文协议ICMP#网络层，报告差错和异常情况</description>
+    </item>
+    
+    <item>
+      <title>4.2 路由算法</title>
       <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -17,53 +59,12 @@
     </item>
     
     <item>
-      <title>IPv4</title>
-      <link>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</link>
+      <title>4.3 路由协议</title>
+      <link>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ipv4/</guid>
-      <description>IPv4#IP协议定义IP分组和其数据格式
-一个IP分组的格式为：首部+数据
-首部中的重要字段：版本，长度，，，，
-当IP数据报较长超过链路层的MTU时，将其分为多个小IP数据报，称为片，在目的地被重新组装（具体是通过标识号来确定属于同一个IP数据报下）
-IP地址：每台主机或路由器都分配一个，32位，由网络号+主机号组成
-IP地址分类：
-注：1~126是指最高的8位，最高位必须是0，因此表示范围是0~127，但是0和127都有特殊用，所以实际A类的范围是1~126
-有些特殊的IP地址
-网络地址转换NAT#将专用网络地址转换为共用地址，专用网只占一个全球IP地址，下面有用于内部管理的IP地址，对互联网隐藏
-局域网LAN的私有IP地址，私有IP地址是可重用的
-在 A B C三类中选择出了私有IP地址网段：
-NAT路由器的地址是global的，不同端口映射到局域网内不同私有IP地址
-所以在互联网上的人是不知道局域网的构成的，保存在NAT路由器上面
-NAT转换表： 全球IP:端口号 &amp;ndash; 本地IP: 端口号，多个本地IP映射到同一个全球IP，只是WAN端口号不同
-子网划分#同一个网络号下面，主机越多路由表项数就越多
-所以分了三级IP地址结构：网络号:子网号:主机号
-实际是从主机号位数中借出来分给子网号
-用子网掩码区分主机号位和网络号+子网号位
-无分类编址CIDR: 另一种编址IP地址的方法
-网络前缀+主机号，网络前缀位数不定，通过斜线记法表示位数
-就不再有A B C 分类
-同一网络前缀下连续的IP地址组成一个地址块，称为路由聚合
-上层网络前缀长度短，路由表项目少，内部延长前缀灵活划分子网
-在CIDR下，一般通过最长前缀匹配找路由表项
-转发表中每条路由：目的网络-下一跳地址
-根据目的IP的网络前缀查找路由表项，可能有多个匹配，选择前缀最长的，这样地址块最小，匹配更精准
-ARP DHCP ICMP#IP地址：分层次
-硬件地址（MAC)：平面式
-IP分组通过路由的转发到达LAN，然后在目标LAN中以数据链路层MAC地址广播寻址
-地址解析协议ARP：网络层，IP地址到MAC地址的映射，它是自动的
-动态主机配置协议DHCP：应用层，将计算机插入到新的网络，分频IP地址，不需要手工参与
-网际控制报文协议ICMP：网络层，报告差错和异常情况
-IPv6#采用更大的地址空间，从32位扩大到128位</description>
-    </item>
-    
-    <item>
-      <title>IPv6</title>
-      <link>https://zvictorliu.github.io/computer_networking/network_layer/ipv6/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/network_layer/ipv6/</guid>
-      <description>IPv6#</description>
+      <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/</guid>
+      <description>路由协议#</description>
     </item>
     
   </channel>
