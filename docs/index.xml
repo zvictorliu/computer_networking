@@ -129,21 +129,7 @@ ARP高速缓存表：
     </item>
     
     <item>
-      <title>6.1 DHCP</title>
-      <link>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</guid>
-      <description>动态主机配置协议DHCP#主机访问web服务器需要配置IP地址、子网掩码、默认网关、DNS服务器等信息
-但是手工配置比较麻烦，于是设置了DHCP服务器，自动获取配置信息
-其过程是：
-客户启动DHCP：广播DHCP发现报文，此时由于还未配置IP地址等，数据报中的源IP地址用0.0.0.0，目的地址用255.255.255.255。这些是默认写好的，报文中还有自己的MAC地址和事务ID 所有设备收到数据报：对于DHCP客户端没有相应端口67，丢弃；对于DHCP服务器接收并进行响应 报文中有客户的MAC地址，服务器查找数据库中的配置信息。有则发送DHCP提供报文，没有则发送默认配置信息。目的IP仍然为广播地址 所有设备收到数据报：DHCP服务器有相应端口68因而丢弃，DHCP客户根据事务ID知道是自己请求的，接收 再次广播请求服务器同意（可能有多个DHCP服务器），此时还是0.0.0.0 服务器确认后，才进行配置 同时还有ARP检查IP地址是否已经被占用
-如果有路由器，路由器是不转发广播报文的
-办法是给路由器配置DHCP服务器的IP地址，使之成为中继代理，将广播报文只转发给DHCP服务器</description>
-    </item>
-    
-    <item>
-      <title>UDP协议</title>
+      <title>5.1 UDP协议</title>
       <link>https://zvictorliu.github.io/computer_networking/transportation_layer/udp/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -157,6 +143,20 @@ UDP适合一次性传输少量数据、对可靠性要求不高的场景
 根据目的端口号找应用进程，找不到就丢弃，由ICMP发送不可达报文给发送端
 校验#虽说可靠性机制在应用层，但校验还是UDP协议要做的，即宁差勿错
 计算方法有点复杂。。。</description>
+    </item>
+    
+    <item>
+      <title>6.1 DHCP</title>
+      <link>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/application_layer/dhcp/</guid>
+      <description>动态主机配置协议DHCP#主机访问web服务器需要配置IP地址、子网掩码、默认网关、DNS服务器等信息
+但是手工配置比较麻烦，于是设置了DHCP服务器，自动获取配置信息
+其过程是：
+客户启动DHCP：广播DHCP发现报文，此时由于还未配置IP地址等，数据报中的源IP地址用0.0.0.0，目的地址用255.255.255.255。这些是默认写好的，报文中还有自己的MAC地址和事务ID 所有设备收到数据报：对于DHCP客户端没有相应端口67，丢弃；对于DHCP服务器接收并进行响应 报文中有客户的MAC地址，服务器查找数据库中的配置信息。有则发送DHCP提供报文，没有则发送默认配置信息。目的IP仍然为广播地址 所有设备收到数据报：DHCP服务器有相应端口68因而丢弃，DHCP客户根据事务ID知道是自己请求的，接收 再次广播请求服务器同意（可能有多个DHCP服务器），此时还是0.0.0.0 服务器确认后，才进行配置 同时还有ARP检查IP地址是否已经被占用
+如果有路由器，路由器是不转发广播报文的
+办法是给路由器配置DHCP服务器的IP地址，使之成为中继代理，将广播报文只转发给DHCP服务器</description>
     </item>
     
     <item>
@@ -237,6 +237,33 @@ ISO/OSI#ISO指的是国际标准化组织，他们提出的一种网络体系�
     </item>
     
     <item>
+      <title>5.2 TCP协议</title>
+      <link>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp/</guid>
+      <description>TCP协议#TCP面向字节流，将应用层传下来的数据看成一串字节流，但是在发送时是从缓存中去一部分（字节单位）加上首部构成TCP报文发送出去的
+报文格式#首部格式：
+源端口号和目的端口号标识各自的应用进程
+序号：增加到最后一个时下一个又从0开始，它指出的是本报文段中数据的第一个字节的序号（而不是报文的序号）
+确认号：表示序号n之前的数据都已正确接收，期望接收序号为n的数据（ACK字段取为1表示确认号字段有效）
+数据偏移：表示首部的长度（首部是可扩展的），也告诉了数据部分的起始处
+窗口：用于流量控制
+连接管理#三个要求：
+双方要知道对方的存在 双方需要协商某些参数 对运输实体资源分配 建立#需要三次握手：
+客户机向服务器发送请求报文段
+SYN=1表示是一个连接请求，不携带数据但仍然消耗一个数据号
+服务器收到，同意，发回确认（同时分配缓存和变量）
+SYN=1表示这是一个同意，ACK=1表示确认字段有效，ack=x+1表示正常
+客户机收到后，再向服务器发出确认（并分配缓存） ，服务器收到后就进入已连接状态，不再确认了
+ACK=1表示有效，ack=y+1表示正常，seq=x+1，但此时如果不携带数据就不消耗
+注意，确认号和确认位不一样，确认位只有0和1，表示确认号是否有效的；这里面SYN位表示是前两次握手需要对方确认，ACK表示在确认
+第三次握手的必要性：防止已经失效的连接请求报文段突然到达服务器，如果仅第二次握手服务器就进入ESTABLISHED状态的话就会一直空等数据
+释放#四次挥手，双方都能主动释放，但我们还是以客户主动释放来学
+客户发送关闭请求后，关闭这方的数据发送 服务器收到后关闭数据接收，并发送确认（此时服务器仍然能向客户发送数据） 等到服务器觉得没有数据要发送了，再次发送确认，表示今后不会再发数据过来了 客户端收到后再确认，服务器收到后完全关闭 ，而客户端是定时后才完全关闭 更高级的，如果客户端发生故障，服务器也有保活计时器确保不会一直等下去</description>
+    </item>
+    
+    <item>
       <title>6.2 DNS</title>
       <link>https://zvictorliu.github.io/computer_networking/application_layer/dns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -254,26 +281,6 @@ Domain Name System, DNS 是一种命名系统，和IP地址对应，便于记忆
 域名解析过程#递归查询#迭代查询#一般是，主机以递归方式向本地服务器查询（因为之间可能也是有转发的），本地服务器以迭代方式向根服务器查询，服务器给出答案或者找答案的地方
 同时，每个DNS服务器上有高速缓存，方便快速查找
 DNS报文使用UDP服务</description>
-    </item>
-    
-    <item>
-      <title>TCP协议</title>
-      <link>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp/</guid>
-      <description>TCP协议#报文格式#各个字段的含义：
-序号 TCP传输的每个字节都按顺序编号，序号字段存入本报文段数据的第一个自己序号 连接管理#建立#三个要求：
-每一方都要知道对方的存在 双方需要协商某些参数 对运输实体资源分配 每条连接以两端的套接字确定，需要三次握手：
-客户机向服务器发送请求报文段
-这个报文段比较特殊，发出去后进入 SYN-SENT状态 服务器收到，同意，发回确认
-进入SYN-RCVD状态 客户机收到后，再向服务器发出确认
-进入ESTABLISHED状态 释放#四次握手
-可靠传输实现#首部的确认号是期望对方收到的下一个报文段的序号，检查这个
-累积确认方式，并不是按顺序的
-超时和冗余ACK时会进行重传
-收到比期望的序号大的，发送一个冗余ACK指明，当发送方收到3个冗余ACK后就会重传 流量控制#基于滑动窗口
-拥塞控制#</description>
     </item>
     
     <item>
@@ -316,6 +323,34 @@ md这里面太细节了，文字描述不清楚
       
       <guid>https://zvictorliu.github.io/computer_networking/network_layer/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/</guid>
       <description>路由协议#</description>
+    </item>
+    
+    <item>
+      <title>5.3 TCP流量、差错和可靠控制</title>
+      <link>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp_2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zvictorliu.github.io/computer_networking/transportation_layer/tcp_2/</guid>
+      <description>TCP流量、差错和可靠#可靠传输#发送方将缓冲区内发送窗口中的数据发送出去，得到确认的数据进行删除，在还没有得到确认的情况下，发送方可将窗口内的全部数据都依次发送出去，收到确认后，窗口后沿向前移动（而前沿取决于拥塞窗口和接收窗口的大小）
+重传：发送了一个报文后就有一个超时重传计时器，当发送窗口内都已发送后不能再发送，等待确认或者超时；而为了快速重传则是冗余ACK机制
+接收方收到的数据存入缓存区的接收窗口，只对按序接收的最高序号进行确认（累积确认，不是一个个确认），如果有不按序要等缺少的收到后再交给上层
+注意接收的TCP数据报往往不可能是只有一个字节数据，只是书上方便演示而已，所以实际是成段接收成段丢失，确认是每收到一段后发送的
+对于同时双向发送数据时，ACK是可以捎带在数据里的
+流量控制#基于滑动窗口机制，接收方控制发送方的速率
+一般是，接收方的确认信息中告知接收窗口的大小，发送方收到后移动窗口并调整大小（一般不建议让窗口缩小到把已经发送的也排除在外了，此外发送窗口是取接收窗口和拥塞窗口的最小值）
+此时发送方一方面滑动窗口另一方面窗口大小也要变化
+补充：有可能窗口为0后，再修改窗口时的报文丢失，造成死锁，于是有一个持续计时器，进行0窗口探测
+拥塞控制#拥塞： 对资源的需求超过了能提供的可用部分，是一个全局的状况
+拥塞窗口由发送方动态维护
+讨论时一般以最大报文段MSS为单位
+慢开始算法#传输轮次：完成一次窗口传输并得到确认
+在未达到慢开始门限值ssthresh之前，发送窗口值swnd和拥塞窗口cwnd值取一样，每收到一个报文段确认就把拥塞窗口值+1，所以刚开始是指数增长
+达到ssthresh之后，改用拥塞避免算法
+拥塞避免算法#每个传输轮次后加一，此时是线性增长
+当发生丢失时造成超时重传后，网络可能发送拥塞，于是此时应减小窗口：
+将ssthresh更新为发生拥塞时的cwnd的一半 将cwnd取为1，再次执行慢开始算法，重头再来 但是此时并不一定发生拥塞，发生了误解，所以有改进的快重传和快恢复
+快重传#冗余ACK，当发送方收到3个连续的重复确认就重传，不等超时重传计时器
+快恢复#收到3个重复确认即知道只是丢失个别，不启动慢开始算法，而执行快恢复算法：ssthresh还是取一半，cwnd取为ssthresh而不是从1开始（也可以适当扩大），然后执行拥塞避免算法</description>
     </item>
     
     <item>
